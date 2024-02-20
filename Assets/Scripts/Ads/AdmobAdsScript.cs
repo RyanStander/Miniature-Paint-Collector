@@ -10,7 +10,8 @@ namespace Ads
 #if UNITY_ANDROID
         //private string bannerID = "ca-app-pub-1709328667164551/4901784331";//Real ID
         private string bannerID = "ca-app-pub-3940256099942544/6300978111";//Test ID
-        private string interstitialID = "ca-app-pub-1709328667164551/7046416153";
+        //private string interstitialID = "ca-app-pub-1709328667164551/7046416153";//Real ID
+        private string interstitialID = "ca-app-pub-3940256099942544/1033173712";//Test ID
 #else
 private string bannerID = "unexpected_platform";
 #endif
