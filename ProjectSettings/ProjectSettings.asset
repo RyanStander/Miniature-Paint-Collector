@@ -908,10 +908,10 @@ PlayerSettings:
   apiCompatibilityLevel: 6
   activeInputHandler: 0
   windowsGamepadBackendHint: 0
-  cloudProjectId: 6c5b927c-2567-4216-a356-8086c7844335
+  cloudProjectId: fe6be65e-247d-4fcd-be29-39f74431d26d
   framebufferDepthMemorylessMode: 0
   qualitySettingsNames: []
-  projectName: Paint Forge (1)
+  projectName: 'Paint Forge: Miniature Paint Collector'
   organizationId: stinky-cheese
   cloudEnabled: 0
   legacyClampBlendShapeWeights: 0
