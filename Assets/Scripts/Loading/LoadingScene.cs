@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -14,20 +15,20 @@ namespace Loading
         {
             StartCoroutine(LoadSceneAsync(sceneId));
         }
-        
-        private IEnumerator LoadSceneAsync(int sceneId)
+
+        protected IEnumerator LoadSceneAsync(int sceneId)
         {
             var operation = SceneManager.LoadSceneAsync(sceneId);
-            
+
             LoadingScreen.SetActive(true);
-            
+
             while (!operation.isDone)
             {
                 var progress = Mathf.Clamp01(operation.progress / 0.9f);
                 LoadingBarFill.fillAmount = progress;
+                
                 yield return null;
             }
         }
-
     }
 }

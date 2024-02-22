@@ -5,115 +5,101 @@ using UnityEngine;
 
 namespace Ads
 {
-    public class AdmobAdsScript : MonoBehaviour
+    public static class AdmobAdsScript
     {
 #if UNITY_ANDROID
-        //private string bannerID = "ca-app-pub-1709328667164551/4901784331";//Real ID
-        private string bannerID = "ca-app-pub-3940256099942544/6300978111";//Test ID
-        //private string interstitialID = "ca-app-pub-1709328667164551/7046416153";//Real ID
-        private string interstitialID = "ca-app-pub-3940256099942544/1033173712";//Test ID
+        //private static string bannerID = "ca-app-pub-1709328667164551/4901784331";//Real ID
+        private static string bannerID = "ca-app-pub-3940256099942544/6300978111";//Test ID
+        //private static string interstitialID = "ca-app-pub-1709328667164551/7046416153";//Real ID
+        private static string interstitialID = "ca-app-pub-3940256099942544/1033173712";//Test ID
 #else
 private string bannerID = "unexpected_platform";
 #endif
-        
-        private BannerView bannerView;
-        private InterstitialAd interstitialAd;
-
-        [SerializeField] private TextMeshProUGUI outputLog;
-
-        private void Start()
-        {
-            OutputLog("Using banner ID : " + bannerID);
-            //MobileAds.RaiseAdEventsOnUnityMainThread = true;
-            MobileAds.Initialize(initStatus =>
-            {
-                OutputLog("Ads initialised!");
-            });
-        }
+        public static BannerView bannerView { get; private set; } 
+        public static InterstitialAd interstitialAd { get; private set; }
 
         #region Banner
 
-        public void LoadBannerAd()
+        public static void LoadBannerAd()
         {
             CreateBannerView();
             
             ListenToBannerEvents();
-            OutputLog("Made it this far");
             if (bannerView == null)
             {
                 CreateBannerView();
-                OutputLog("Banner view is null. Creating a new one...");
+                Debug.Log("Banner view is null. Creating a new one...");
             }
 
             var adRequest = new AdRequest();
             //adRequest.Keywords.Add("unity-admob-sample");
             
-            OutputLog("Loading banner ad...");
+            Debug.Log("Loading banner ad...");
             bannerView.LoadAd(adRequest);
         }
 
-        private void CreateBannerView()
+        private static void CreateBannerView()
         {
             if (bannerView != null)
             {
-                OutputLog("Destroying banner ad");
+                Debug.Log("Destroying banner ad");
                 DestroyBannerAd();
             }
-            OutputLog("Creating banner ad");
+            Debug.Log("Creating banner ad");
             bannerView = new BannerView(bannerID, AdSize.Banner, AdPosition.Bottom);
-            OutputLog("Banner ad created");
+            Debug.Log("Banner ad created");
         }
 
-        private void ListenToBannerEvents()
+        private static void ListenToBannerEvents()
         {
             // Raised when an ad is loaded into the banner view.
             bannerView.OnBannerAdLoaded += () =>
             {
-                OutputLog("Banner view loaded an ad with response : "
+                Debug.Log("Banner view loaded an ad with response : "
                           + bannerView.GetResponseInfo());
             };
             // Raised when an ad fails to load into the banner view.
             bannerView.OnBannerAdLoadFailed += (LoadAdError error) =>
             {
-                OutputLog("Banner view failed to load an ad with error : "
-                            + error);
+                Debug.Log("Banner view failed to load an ad with error : "
+                          + error);
             };
             // Raised when the ad is estimated to have earned money.
             bannerView.OnAdPaid += (AdValue adValue) =>
             {
-                OutputLog(String.Format("Banner view paid {0} {1}.",
+                Debug.Log(String.Format("Banner view paid {0} {1}.",
                     adValue.Value,
                     adValue.CurrencyCode));
             };
             // Raised when an impression is recorded for an ad.
             bannerView.OnAdImpressionRecorded += () =>
             {
-                OutputLog("Banner view recorded an impression.");
+                Debug.Log("Banner view recorded an impression.");
             };
             // Raised when a click is recorded for an ad.
             bannerView.OnAdClicked += () =>
             {
-                OutputLog("Banner view was clicked.");
+                Debug.Log("Banner view was clicked.");
             };
             // Raised when an ad opened full screen content.
             bannerView.OnAdFullScreenContentOpened += () =>
             {
-                OutputLog("Banner view full screen content opened.");
+                Debug.Log("Banner view full screen content opened.");
             };
             // Raised when the ad closed full screen content.
             bannerView.OnAdFullScreenContentClosed += () =>
             {
-                OutputLog("Banner view full screen content closed.");
+                Debug.Log("Banner view full screen content closed.");
             };
             
-            OutputLog("Listening to banner events");
+            Debug.Log("Listening to banner events");
         }
 
-        public void DestroyBannerAd()
+        public static void DestroyBannerAd()
         {
             if (bannerView != null)
             {
-                OutputLog("Destroying banner ad");
+                Debug.Log("Destroying banner ad");
                 bannerView.Destroy();
                 bannerView = null;
             }
@@ -123,7 +109,7 @@ private string bannerID = "unexpected_platform";
 
         #region Interstitial
 
-        public void LoadInterstitialAd()
+        public static void LoadInterstitialAd()
         {
             if (interstitialAd != null)
             {
@@ -132,16 +118,15 @@ private string bannerID = "unexpected_platform";
             }
             
             var adRequest = new AdRequest();
-            //adRequest.Keywords.Add("unity-admob-sample");
 
             InterstitialAd.Load(interstitialID, adRequest, (InterstitialAd ad, LoadAdError error) =>
             {
                 if (error != null || ad == null)
                 {
-                    OutputLog("Failed to load interstitial ad with error : " + error);
+                    Debug.Log("Failed to load interstitial ad with error : " + error);
                 }
                 
-                OutputLog("Interstitial ad loaded successfully"+ad.GetResponseInfo());
+                Debug.Log("Interstitial ad loaded successfully"+ad.GetResponseInfo());
 
                 interstitialAd = ad;
                 InterstitialEvent(interstitialAd);
@@ -149,68 +134,57 @@ private string bannerID = "unexpected_platform";
             });
         }
 
-        public void ShowInterstitialAd()
+        public static bool ShowInterstitialAd()
         {
             if (interstitialAd != null && interstitialAd.CanShowAd())
             {
                 interstitialAd.Show();
+                return true;
             }
             else
             {
-                OutputLog("Interstitial ad is not ready yet");
+                Debug.Log("Interstitial ad is not ready yet");
+                return false;
             }
         }
 
-        private void InterstitialEvent(InterstitialAd ad)
+        private static void InterstitialEvent(InterstitialAd ad)
         {
             // Raised when the ad is estimated to have earned money.
             interstitialAd.OnAdPaid += (AdValue adValue) =>
             {
-                OutputLog(String.Format("Interstitial ad paid {0} {1}.",
+                Debug.Log(String.Format("Interstitial ad paid {0} {1}.",
                     adValue.Value,
                     adValue.CurrencyCode));
             };
             // Raised when an impression is recorded for an ad.
             interstitialAd.OnAdImpressionRecorded += () =>
             {
-                OutputLog("Interstitial ad recorded an impression.");
+                Debug.Log("Interstitial ad recorded an impression.");
             };
             // Raised when a click is recorded for an ad.
             interstitialAd.OnAdClicked += () =>
             {
-                OutputLog("Interstitial ad was clicked.");
+                Debug.Log("Interstitial ad was clicked.");
             };
             // Raised when an ad opened full screen content.
             interstitialAd.OnAdFullScreenContentOpened += () =>
             {
-                OutputLog("Interstitial ad full screen content opened.");
+                Debug.Log("Interstitial ad full screen content opened.");
             };
             // Raised when the ad closed full screen content.
             interstitialAd.OnAdFullScreenContentClosed += () =>
             {
-                OutputLog("Interstitial ad full screen content closed.");
+                Debug.Log("Interstitial ad full screen content closed.");
             };
             // Raised when the ad failed to open full screen content.
             interstitialAd.OnAdFullScreenContentFailed += (AdError error) =>
             {
-                OutputLog("Interstitial ad failed to open full screen content " +
+                Debug.Log("Interstitial ad failed to open full screen content " +
                           "with error : " + error);
             };
         }
 
         #endregion
-        
-        private void OutputLog(string log)
-        {
-            Debug.Log(log);
-            //add log to the text, if it is then more than 10 lines, remove the first line
-            var text = outputLog.text;
-            text += log + "\n";
-            if (text.Split('\n').Length > 10)
-            {
-                text = text.Substring(text.IndexOf('\n') + 1);
-            }
-            outputLog.text = text;
-        }
     }
 }
