@@ -4,6 +4,7 @@ using UnityEngine;
 
 namespace Paints.PaintItems
 {
+#if UNITY_EDITOR
     [InitializeOnLoad]
     public class PaintDataEditor
     {
@@ -14,29 +15,43 @@ namespace Paints.PaintItems
 
         private static void EnsureUniqueIDs()
         {
-            var paints = Resources.LoadAll<PaintData>("Paints"); // Load all PaintData assets in the paint subfolder
+            PaintData[] paints = Resources.LoadAll<PaintData>(""); // Load all PaintData assets
 
             if (paints.Length == 0)
                 return;
 
-            var sortedPaints = new List<PaintData>(paints);
-            sortedPaints.Sort((x, y) => x.PaintItem.ID.CompareTo(y.PaintItem.ID)); // Sort by ID
+            // Sort paints by ID
+            List<PaintData> sortedPaints = new List<PaintData>(paints);
+            sortedPaints.Sort((x, y) => x.PaintItem.ID.CompareTo(y.PaintItem.ID));
 
-            for (var i = 0; i < sortedPaints.Count; i++)
+            // List to keep track of used IDs
+            HashSet<int> usedIDs = new HashSet<int>();
+
+            // Iterate over paints, ensuring unique and incremental IDs
+            int nextID = 0;
+            foreach (PaintData paint in sortedPaints)
             {
-                var paint = sortedPaints[i];
-
-                if (paint.PaintItem.ID != i)
+                // Ensure negative or duplicate IDs are updated
+                if (paint.PaintItem.ID < 0 || usedIDs.Contains(paint.PaintItem.ID))
                 {
-                    Undo.RecordObject(paint, "Update Paint ID");
-                    paint.PaintItem.ID = i;
-                    EditorUtility.SetDirty(paint);
-                    Debug.Log("Updated ID for paint '" + paint.name + "' to: " + i);
+                    paint.PaintItem.ID = nextID;
                 }
+
+                // Find the next available ID
+                while (usedIDs.Contains(nextID))
+                {
+                    nextID++;
+                }
+ 
+                // Assign new unique ID
+                paint.PaintItem.ID = nextID;
+                usedIDs.Add(nextID);
+                nextID++;
             }
 
             AssetDatabase.SaveAssets();
             AssetDatabase.Refresh();
         }
     }
+#endif
 }

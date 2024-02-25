@@ -42,7 +42,6 @@ private string bannerID = "unexpected_platform";
         {
             if (bannerView != null)
             {
-                Debug.Log("Destroying banner ad");
                 DestroyBannerAd();
             }
             Debug.Log("Creating banner ad");
@@ -145,6 +144,15 @@ private string bannerID = "unexpected_platform";
             {
                 Debug.Log("Interstitial ad is not ready yet");
                 return false;
+            }
+        }
+        
+        public static void DestroyInterstitialAd()
+        {
+            if (interstitialAd != null)
+            {
+                interstitialAd.Destroy();
+                interstitialAd = null;
             }
         }
 

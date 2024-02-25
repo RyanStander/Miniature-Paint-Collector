@@ -71,6 +71,8 @@ namespace Loading
                     AdmobAdsScript.interstitialAd.OnAdFullScreenContentClosed += () =>
                     {
                         adClosed = true;
+                        //unload ad screen
+                        AdmobAdsScript.DestroyInterstitialAd();
                     };
                 }
                 else

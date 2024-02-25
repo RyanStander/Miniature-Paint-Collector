@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: PureRed
   m_EditorClassIdentifier: 
   PaintItem:
-    ID: 0
+    ID: 4
     Name: Pure Red
     Brand: 1
     PaintSprite: {fileID: 21300000, guid: 54ab62d92e616fd43a68baf449c501fa, type: 3}
