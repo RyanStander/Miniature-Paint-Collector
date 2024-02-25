@@ -9,7 +9,7 @@ EditorBuildSettings:
     path: Assets/Scenes/DataLoadScreen.unity
     guid: 9947479d698efb946930814984eb4d6e
   - enabled: 1
-    path: Assets/Scenes/AppMenus.unity
+    path: Assets/Scenes/AppMenu.unity
     guid: 6d40dc94df5c6214db74eed195137e02
   - enabled: 0
     path: Assets/Scenes/AdMobAds.unity

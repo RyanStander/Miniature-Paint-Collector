@@ -1,4 +1,4 @@
-﻿namespace PaintData
+﻿namespace Paints
 {
     public enum PaintBrand
     {

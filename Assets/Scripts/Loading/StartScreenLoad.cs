@@ -59,12 +59,14 @@ namespace Loading
         {
             AdmobAdsScript.LoadInterstitialAd();
             
+            var adShown = false;
             var adClosed = false;
             
             while (!adClosed)
             {
-                if (AdmobAdsScript.ShowInterstitialAd())
+                if (!adShown && AdmobAdsScript.ShowInterstitialAd())
                 {
+                    adShown = true;
                     //After showing ad wait for event where ad is closed
                     AdmobAdsScript.interstitialAd.OnAdFullScreenContentClosed += () =>
                     {
