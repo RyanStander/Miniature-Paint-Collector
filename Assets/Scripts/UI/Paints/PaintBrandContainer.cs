@@ -10,17 +10,6 @@ namespace UI.Paints
     {
         public PaintBrand PaintBrand;
         public Transform ContentTransform;
-        
-        [SerializeField] private ScrollRect scrollView;
-
-        private void OnValidate()
-        {
-            if(scrollView == null)
-                scrollView = GetComponent<ScrollRect>();
-            
-            if(scrollView!=null && ContentTransform== null)
-                ContentTransform = scrollView.content;
-        }
 
         public void ClearContainer()
         {
