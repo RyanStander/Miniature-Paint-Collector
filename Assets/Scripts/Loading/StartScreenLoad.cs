@@ -39,7 +39,12 @@ namespace Loading
             await UnityServices.InitializeAsync();
             
             //TODO: We should allow proper sign ins : https://docs.unity.com/ugs/manual/authentication/manual/sdk-integration-intro
-            await AuthenticationService.Instance.SignInAnonymouslyAsync();
+            
+            //If player is not signed in
+            if (!AuthenticationService.Instance.IsSignedIn)
+            {
+                await AuthenticationService.Instance.SignInAnonymouslyAsync();
+            }
         }
         
         private async Task SetupAds()

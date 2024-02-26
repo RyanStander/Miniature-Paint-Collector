@@ -2,6 +2,7 @@
 using Paints;
 using UI.Paints;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 /// <summary>
 /// Manages the paint inventory loading and transitions between screens.
@@ -75,10 +76,15 @@ public class GameManager : MonoBehaviour
     {
         if (paintInventory.IsInitialized && !paintDataLoaded)
         {
-            paintSpawner.SpawnPlayerCollection(paintInventory.GetPaintQuantities());
-            paintDataLoaded = true;
-            CloseLoadingPanel();
+            LoadPlayerCollection();
         }
+    }
+
+    private void LoadPlayerCollection()
+    {
+        paintSpawner.SpawnPlayerCollection(paintInventory.GetPaintQuantities());
+        paintDataLoaded = true;
+        CloseLoadingPanel();
     }
 
     public void OpenSidePanel()
@@ -114,5 +120,11 @@ public class GameManager : MonoBehaviour
     {
         paintInventory.AddPaintQuantity(1, 1);
         paintInventory.AddPaintQuantity(0,2);
+    }
+
+    public void ClearData()
+    {
+        paintInventory.DeletePaintQuantityData();
+        SceneManager.LoadScene(0);
     }
 }
