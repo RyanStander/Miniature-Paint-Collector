@@ -10,7 +10,8 @@ namespace UI.Paints
     {
         [SerializeField] private GameObject paintItemPrefab;
         [SerializeField] private PaintBrandContainer[] paintBrandContainers;
-        private List<int> paintBrandsWithPaints = new List<int>();
+        [SerializeField] private GameObject noPaintsMessage;
+        private List<int> paintBrandsWithPaints = new();
 
         private void OnValidate()
         {
@@ -51,13 +52,13 @@ namespace UI.Paints
                         {
                             Debug.LogError("PaintItem component not found on prefab.");
                         }
+                        
+                        if (!paintBrandsWithPaints.Contains(index))
+                        {
+                            paintBrandsWithPaints.Add(index);
+                        }
 
                         break;
-                    }
-
-                    if (!paintBrandsWithPaints.Contains(index))
-                    {
-                        paintBrandsWithPaints.Add(index);
                     }
                         
                 }
@@ -70,6 +71,12 @@ namespace UI.Paints
                 {
                     paintBrandContainers[paintBrandContainersIndex].gameObject.SetActive(false);
                 }
+                
+            }
+            
+            if (paintBrandsWithPaints.Count == 0)
+            {
+                noPaintsMessage.SetActive(true);
             }
         }
 

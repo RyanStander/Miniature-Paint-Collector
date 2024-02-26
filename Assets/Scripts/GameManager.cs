@@ -109,4 +109,10 @@ public class GameManager : MonoBehaviour
         dataLoadingScreenCanvasGroup.blocksRaycasts = false;
         dataLoadingScreenCanvasGroup.alpha = 0;
     }
+    
+    public void TemporaryAddPaint()
+    {
+        paintInventory.AddPaintQuantity(1, 1);
+        paintInventory.AddPaintQuantity(0,2);
+    }
 }
