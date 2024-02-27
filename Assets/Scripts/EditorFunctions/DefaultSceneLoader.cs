@@ -12,7 +12,7 @@
             EditorApplication.playModeStateChanged += LoadDefaultScene;
         }
 
-        static void LoadDefaultScene(PlayModeStateChange state)
+        private static void LoadDefaultScene(PlayModeStateChange state)
         {
             if (state == PlayModeStateChange.ExitingEditMode)
             {

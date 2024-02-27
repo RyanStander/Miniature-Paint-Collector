@@ -1,7 +1,9 @@
 ﻿using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
+using System.Runtime.CompilerServices;
 
+[assembly:InternalsVisibleTo("EditMode")]
 namespace Paints.PaintItems
 {
 #if UNITY_EDITOR
@@ -13,7 +15,7 @@ namespace Paints.PaintItems
             EditorApplication.delayCall += EnsureUniqueIDs;
         }
 
-        private static void EnsureUniqueIDs()
+        internal static void EnsureUniqueIDs()
         {
             PaintData[] paints = Resources.LoadAll<PaintData>(""); // Load all PaintData assets
 
