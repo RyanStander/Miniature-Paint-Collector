@@ -36,7 +36,7 @@ public class GameManager : MonoBehaviour
     #region Private Fields
 
     private PaintInventory paintInventory;
-    private bool paintDataLoaded;
+    private bool playerPaintDataLoaded;
 
     #endregion
 
@@ -67,24 +67,39 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        paintInventory = new PaintInventory();
-        OpenLoadingPanel();
-        paintDataLoaded = false;
+        OpenHomeMenu();
     }
 
     private void Update()
     {
-        if (paintInventory.IsInitialized && !paintDataLoaded)
-        {
+        if (paintInventory.IsInitialized && !playerPaintDataLoaded)
             LoadPlayerCollection();
-        }
     }
+    
+    public void OpenHomeMenu()
+    {
+        paintInventory = new PaintInventory();
+        OpenLoadingPanel();
+        playerPaintDataLoaded = false;
+    }
+
 
     private void LoadPlayerCollection()
     {
         paintSpawner.SpawnPlayerCollection(paintInventory.GetPaintQuantities());
-        paintDataLoaded = true;
+        playerPaintDataLoaded = true;
         CloseLoadingPanel();
+    }
+    
+
+    public void OpenCatalogue()
+    {
+        LoadCatalogue();
+    }
+    
+    private void LoadCatalogue()
+    {
+        paintSpawner.SpawnAllPaints();
     }
 
     public void OpenSidePanel()

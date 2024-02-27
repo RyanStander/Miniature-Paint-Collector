@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Paints;
 using Paints.PaintItems;
 using UnityEngine;
 
@@ -11,24 +12,31 @@ namespace UI.Paints
         [SerializeField] private GameObject paintItemPrefab;
         [SerializeField] private PaintBrandContainer[] paintBrandContainers;
         [SerializeField] private GameObject noPaintsMessage;
+
+        private Dictionary<PaintBrand, PaintBrandContainer> paintBrandContainerDictionary = new();
         private List<int> paintBrandsWithPaints = new();
+        private PaintData[] paintDatas;
 
         private void OnValidate()
         {
-            //find all paint brand containers
-            paintBrandContainers = GetComponentsInChildren<PaintBrandContainer>();
+            if (paintBrandContainers == null)
+                paintBrandContainers = GetComponentsInChildren<PaintBrandContainer>();
+        }
+
+        private void Awake()
+        {
+            // Load all PaintData assets from Resources folder
+            paintDatas = Resources.LoadAll<PaintData>("Paints");
+
+            foreach (var tempPaintBrandContainer in paintBrandContainers)
+            {
+                paintBrandContainerDictionary.Add(tempPaintBrandContainer.PaintBrand, tempPaintBrandContainer);
+            }
         }
 
         public void SpawnPlayerCollection(Dictionary<int, float> paintQuantities)
         {
-            // Clear all paint brand containers
-            foreach (var brandContainer in paintBrandContainers)
-            {
-                brandContainer.ClearContainer();
-            }
-
-            // Load all PaintData assets from Resources folder
-            var paintDatas = Resources.LoadAll<PaintData>("Paints");
+            ResetPaintUIData();
 
             // Iterate through each PaintData and spawn paint items
             foreach (var paintData in paintDatas)
@@ -37,80 +45,63 @@ namespace UI.Paints
                 if (!paintQuantities.ContainsKey(paintData.PaintItem.ID))
                     continue;
 
-                for (var index = 0; index < paintBrandContainers.Length; index++)
-                {
-                    var brandContainer = paintBrandContainers[index];
-                    if (brandContainer.PaintBrand == paintData.PaintItem.Brand)
-                    {
-                        var paintItem = Instantiate(paintItemPrefab, brandContainer.ContentTransform);
-                        var paintItemComponent = paintItem.GetComponent<PaintItemDisplay>();
-                        if (paintItemComponent != null)
-                        {
-                            paintItemComponent.SetPaintData(paintData);
-                        }
-                        else
-                        {
-                            Debug.LogError("PaintItem component not found on prefab.");
-                        }
-                        
-                        if (!paintBrandsWithPaints.Contains(index))
-                        {
-                            paintBrandsWithPaints.Add(index);
-                        }
-
-                        break;
-                    }
-                        
-                }
+                SpawnPaintInBrand(paintBrandContainerDictionary[paintData.PaintItem.Brand], paintData);
             }
 
-            //Hide empty paint brand containers
-            for ( var paintBrandContainersIndex = 0; paintBrandContainersIndex < paintBrandContainers.Length; paintBrandContainersIndex++)
-            {
-                if (!paintBrandsWithPaints.Contains(paintBrandContainersIndex))
-                {
-                    paintBrandContainers[paintBrandContainersIndex].gameObject.SetActive(false);
-                }
-                
-            }
-            
+            HideEmptyPaintBrandContainers();
+
             if (paintBrandsWithPaints.Count == 0)
             {
                 noPaintsMessage.SetActive(true);
             }
         }
 
-        public void ShowAllPaints()
+        public void SpawnAllPaints()
         {
-            // Clear all paint brand containers
-            foreach (var brandContainer in paintBrandContainers)
-            {
-                brandContainer.ClearContainer();
-            }
-
-            // Load all PaintData assets from Resources folder
-            var paintDatas = Resources.LoadAll<PaintData>("Paints");
+            ResetPaintUIData();
 
             // Iterate through each PaintData and spawn paint items
             foreach (var paintData in paintDatas)
             {
-                foreach (var paintItemComponent in from brandContainer in paintBrandContainers
-                         where brandContainer.PaintBrand == paintData.PaintItem.Brand
-                         select Instantiate(paintItemPrefab, brandContainer.ContentTransform)
-                         into paintItem
-                         select paintItem.GetComponent<PaintItemDisplay>())
-                {
-                    if (paintItemComponent != null)
-                    {
-                        paintItemComponent.SetPaintData(paintData);
-                    }
-                    else
-                    {
-                        Debug.LogError("PaintItem component not found on prefab.");
-                    }
+                SpawnPaintInBrand(paintBrandContainerDictionary[paintData.PaintItem.Brand], paintData);
+            }
 
-                    break;
-                }
+            HideEmptyPaintBrandContainers();
+        }
+
+        private void SpawnPaintInBrand(PaintBrandContainer parent, PaintData paintData)
+        {
+            var paintItem = Instantiate(paintItemPrefab, parent.ContentTransform);
+
+            if (paintItem.TryGetComponent(out PaintItemDisplay paintItemDisplay))
+            {
+                paintItemDisplay.SetPaintData(paintData);
+            }
+            else
+            {
+                Debug.LogError("PaintItemDisplay component not found on prefab.");
+            }
+
+            paintBrandsWithPaints.Add((int)parent.PaintBrand);
+        }
+
+        private void ResetPaintUIData()
+        {
+            // Clear all paint brand containers
+            foreach (var brandContainer in paintBrandContainerDictionary)
+            {
+                brandContainer.Value.ClearContainer();
+            }
+
+            paintBrandsWithPaints = new List<int>();
+        }
+
+        private void HideEmptyPaintBrandContainers()
+        {
+            foreach (var paintBrandContainer in paintBrandContainerDictionary.Where(paintBrandContainer =>
+                         !paintBrandsWithPaints.Contains((int)paintBrandContainer.Key)))
+            {
+                paintBrandContainer.Value.gameObject.SetActive(false);
             }
         }
     }

@@ -28,13 +28,11 @@ private string bannerID = "unexpected_platform";
             if (bannerView == null)
             {
                 CreateBannerView();
-                Debug.Log("Banner view is null. Creating a new one...");
             }
 
             var adRequest = new AdRequest();
             //adRequest.Keywords.Add("unity-admob-sample");
             
-            Debug.Log("Loading banner ad...");
             bannerView.LoadAd(adRequest);
         }
 
@@ -44,9 +42,7 @@ private string bannerID = "unexpected_platform";
             {
                 DestroyBannerAd();
             }
-            Debug.Log("Creating banner ad");
             bannerView = new BannerView(bannerID, AdSize.Banner, AdPosition.Bottom);
-            Debug.Log("Banner ad created");
         }
 
         private static void ListenToBannerEvents()
@@ -98,7 +94,6 @@ private string bannerID = "unexpected_platform";
         {
             if (bannerView != null)
             {
-                Debug.Log("Destroying banner ad");
                 bannerView.Destroy();
                 bannerView = null;
             }
@@ -124,8 +119,6 @@ private string bannerID = "unexpected_platform";
                 {
                     Debug.Log("Failed to load interstitial ad with error : " + error);
                 }
-                
-                Debug.Log("Interstitial ad loaded successfully"+ad.GetResponseInfo());
 
                 interstitialAd = ad;
                 InterstitialEvent(interstitialAd);
