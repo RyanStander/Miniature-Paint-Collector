@@ -15,7 +15,6 @@ namespace UI.Paints
 
         private Dictionary<PaintBrand, PaintBrandContainer> paintBrandContainerDictionary = new();
         private List<int> paintBrandsWithPaints = new();
-        private PaintData[] paintDatas;
 
         private void OnValidate()
         {
@@ -25,16 +24,13 @@ namespace UI.Paints
 
         private void Awake()
         {
-            // Load all PaintData assets from Resources folder
-            paintDatas = Resources.LoadAll<PaintData>("Paints");
-
             foreach (var tempPaintBrandContainer in paintBrandContainers)
             {
                 paintBrandContainerDictionary.Add(tempPaintBrandContainer.PaintBrand, tempPaintBrandContainer);
             }
         }
 
-        public void SpawnPlayerCollection(Dictionary<int, float> paintQuantities)
+        public void SpawnPlayerCollection(Dictionary<int, float> paintQuantities, IEnumerable<PaintData> paintDatas)
         {
             ResetPaintUIData();
 
@@ -56,7 +52,7 @@ namespace UI.Paints
             }
         }
 
-        public void SpawnAllPaints()
+        public void SpawnAllPaints(IEnumerable<PaintData> paintDatas)
         {
             ResetPaintUIData();
 

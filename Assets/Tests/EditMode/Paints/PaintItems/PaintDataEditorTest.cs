@@ -38,7 +38,7 @@ namespace Tests.EditMode.Paints.PaintItems
         public void TestNullPaintDataAssets()
         {
             // Arrange
-            PaintData[] paints = null;
+            PaintData[] paints = null; 
 
             // Act
             PaintDataEditor.EnsureUniqueIDs();

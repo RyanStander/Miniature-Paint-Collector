@@ -43,9 +43,10 @@ namespace Paints.PaintItems
                 while (usedIDs.Contains(nextID))
                 {
                     nextID++;
-                }
+                } 
  
                 // Assign new unique ID
+                EditorUtility.SetDirty(paint);
                 paint.PaintItem.ID = nextID;
                 usedIDs.Add(nextID);
                 nextID++;

@@ -1,93 +1,40 @@
 ﻿//Event that informs subscribers of a debug log
 
-using Crew;
-using TimeAndSeasons;
-using Weather;
+using Paints.PaintItems;
 
 namespace Events
 {
-    public class DateChange : EventData
+    public class SetPlayerPaintQuantity : EventData
     {
-        public readonly int CurrentDay;
-        public readonly int CurrentMonth;
-        public readonly Season CurrentSeason;
-        public readonly int CurrentYear;
+        public readonly int Id;
+        public readonly float Quantity;
 
-        public DateChange(int currentDay, int currentMonth, Season currentSeason, int currentYear) : base(
-            EventIdentifiers.DateChange)
+        public SetPlayerPaintQuantity(int id, float quantity) : base(
+            EventIdentifiers.SetPlayerPaintQuantity)
         {
-            CurrentDay = currentDay;
-            CurrentMonth = currentMonth;
-            CurrentSeason = currentSeason;
-            CurrentYear = currentYear;
+            Id = id;
+            Quantity = quantity;
         }
     }
-
-    public class SendTimeStrength : EventData
+    
+    public class RequestPaintData : EventData
     {
-        public readonly float TimeStrength;
-        public SendTimeStrength(float timeStrength) : base(EventIdentifiers.SendTimeStrength)
+        public readonly int Id;
+        public RequestPaintData(int id) : base(EventIdentifiers.RequestPaintData)
         {
-            TimeStrength = timeStrength;
+            Id = id;
         }
     }
-
-    public class NewDay : EventData
+    
+    public class OpenPaintContextMenu : EventData
     {
-        public NewDay():base(EventIdentifiers.NewDay)
-        {
+        public readonly PaintData PaintData;
+        public readonly float Quantity;
 
+        public OpenPaintContextMenu(PaintData paintData, float quantity) : base(EventIdentifiers.OpenPaintContextMenu)
+        {
+            PaintData = paintData;
+            Quantity = quantity;
         }
     }
-
-    public class WeatherHasChanged : EventData
-    {
-        public readonly WeatherPreset WeatherPreset;
-        public WeatherHasChanged(WeatherPreset weatherPreset) : base(EventIdentifiers.WeatherHasChanged)
-        {
-            WeatherPreset = weatherPreset;
-        }
-    }
-
-    public class NewWind : EventData
-    {
-        public readonly float WindSpeed;
-        public readonly float WindDirection;
-        public NewWind(float windSpeed, float windDirection) : base(EventIdentifiers.NewWind)
-        {
-            WindSpeed = windSpeed;
-            WindDirection = windDirection;
-        }
-    }
-
-    #region Crew
-
-    public class RecruitCrewMember : EventData
-    {
-        public readonly CrewMemberStats CrewMemberStats;
-        public RecruitCrewMember(CrewMemberStats crewMemberStats) : base(EventIdentifiers.RecruitCrewMember)
-        {
-            CrewMemberStats = crewMemberStats;
-        }
-    }
-
-    public class SortCrewMember : EventData
-    {
-        public readonly CrewMemberStats CrewMemberStats;
-        public SortCrewMember(CrewMemberStats crewMemberStats) : base(EventIdentifiers.SortCrewMember)
-        {
-            CrewMemberStats = crewMemberStats;
-        }
-    }
-
-    public class RecalculatePlayerCrewModifiers : EventData
-    {
-        public RecalculatePlayerCrewModifiers() : base(EventIdentifiers.RecalculatePlayerCrewModifiers)
-        {
-        }
-    }
-
-    #endregion
-
-
 }

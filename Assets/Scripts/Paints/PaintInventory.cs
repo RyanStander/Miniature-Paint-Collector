@@ -16,32 +16,38 @@ namespace Paints
             paintQuantities = new Dictionary<int, float>();
             LoadPaintQuantities();
         }
-        
-        public async void AddPaintQuantity(int paintID, float quantity)
+
+        public async void SetPaintQuantity(int paintID, float quantity)
         {
-            paintQuantities[paintID] = quantity; // Update the dictionary
+            //if the quantity is 0, remove the paint from the dictionary
+            if (quantity <= 0)
+                paintQuantities.Remove(paintID);
+            else
+                paintQuantities[paintID] = quantity; // Update the dictionary
+
             await SavePaintQuantities();
         }
-        
+
         public float GetPaintQuantity(int paintID)
         {
             return paintQuantities.TryGetValue(paintID, out var quantity) ? quantity : 0f;
         }
-        
+
         public Dictionary<int, float> GetPaintQuantities()
         {
             return paintQuantities;
         }
-        
+
         private async Task SavePaintQuantities()
         {
             var data = new Dictionary<string, object> { { "PaintQuantities", paintQuantities } };
             await CloudSaveService.Instance.Data.Player.SaveAsync(data);
         }
-        
+
         private async void LoadPaintQuantities()
         {
-            var playerData = await CloudSaveService.Instance.Data.Player.LoadAsync(new HashSet<string> { "PaintQuantities" });
+            var playerData =
+                await CloudSaveService.Instance.Data.Player.LoadAsync(new HashSet<string> { "PaintQuantities" });
             IsInitialized = true;
             if (playerData.TryGetValue("PaintQuantities", out var keyName))
             {

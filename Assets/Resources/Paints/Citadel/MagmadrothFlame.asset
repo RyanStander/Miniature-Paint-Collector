@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: MagmadrothFlame
   m_EditorClassIdentifier: 
   PaintItem:
-    ID: 2
+    ID: 4
     Name: Magmadroth Flame
     Brand: 0
     PaintSprite: {fileID: 21300000, guid: 83b2d95d9ebcb4c41b047fab06a10c43, type: 3}

@@ -1,5 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
+using Events;
 using Paints;
+using Paints.PaintItems;
 using UI.Paints;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -37,14 +40,27 @@ public class GameManager : MonoBehaviour
 
     private PaintInventory paintInventory;
     private bool playerPaintDataLoaded;
+    private Dictionary<int, PaintData> paintDatas;
 
     #endregion
-
+    
     private void OnValidate()
     {
         SetupAutoAssignedFields();
     }
-    
+
+    private void OnEnable()
+    {
+        EventManager.currentManager.Subscribe(EventIdentifiers.SetPlayerPaintQuantity, OnSetPlayerPaintQuantity);
+        EventManager.currentManager.Subscribe(EventIdentifiers.RequestPaintData, OnRequestPaintData);
+    }
+
+    private void OnDisable()
+    {
+        EventManager.currentManager.Unsubscribe(EventIdentifiers.SetPlayerPaintQuantity, OnSetPlayerPaintQuantity);
+        EventManager.currentManager.Unsubscribe(EventIdentifiers.RequestPaintData, OnRequestPaintData);
+    }
+
     private void SetupAutoAssignedFields()
     {
         if(paintSpawner==null)
@@ -68,6 +84,14 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
         OpenHomeMenu();
+        
+        // Load all PaintData assets from Resources folder
+        paintDatas = new Dictionary<int, PaintData>();
+        var tempPaintDatas = Resources.LoadAll<PaintData>("Paints");
+        foreach (var paintData in tempPaintDatas)
+        {
+            paintDatas.Add(paintData.PaintItem.ID, paintData);
+        }
     }
 
     private void Update()
@@ -86,7 +110,7 @@ public class GameManager : MonoBehaviour
 
     private void LoadPlayerCollection()
     {
-        paintSpawner.SpawnPlayerCollection(paintInventory.GetPaintQuantities());
+        paintSpawner.SpawnPlayerCollection(paintInventory.GetPaintQuantities(), paintDatas.Values);
         playerPaintDataLoaded = true;
         CloseLoadingPanel();
     }
@@ -99,7 +123,7 @@ public class GameManager : MonoBehaviour
     
     private void LoadCatalogue()
     {
-        paintSpawner.SpawnAllPaints();
+        paintSpawner.SpawnAllPaints(paintDatas.Values);
     }
 
     public void OpenSidePanel()
@@ -133,8 +157,8 @@ public class GameManager : MonoBehaviour
     
     public void TemporaryAddPaint()
     {
-        paintInventory.AddPaintQuantity(1, 1);
-        paintInventory.AddPaintQuantity(0,2);
+        paintInventory.SetPaintQuantity(1, 1);
+        paintInventory.SetPaintQuantity(0,2);
     }
 
     public void ClearData()
@@ -142,4 +166,25 @@ public class GameManager : MonoBehaviour
         paintInventory.DeletePaintQuantityData();
         SceneManager.LoadScene(0);
     }
+
+
+    #region On Events
+
+    private void OnSetPlayerPaintQuantity(EventData eventData)
+    {
+        if (!eventData.IsEventOfType<SetPlayerPaintQuantity>(out var setPlayerPaintQuantity))
+            return;
+        
+        paintInventory.SetPaintQuantity(setPlayerPaintQuantity.Id, setPlayerPaintQuantity.Quantity);
+    }
+    
+    private void OnRequestPaintData(EventData eventData)
+    {
+        if (!eventData.IsEventOfType<RequestPaintData>(out var requestPaintData))
+            return;
+        
+        EventManager.currentManager.AddEvent(new OpenPaintContextMenu(paintDatas[requestPaintData.Id], paintInventory.GetPaintQuantity(requestPaintData.Id)));
+    }
+
+    #endregion
 }
