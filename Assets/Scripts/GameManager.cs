@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Events;
 using Paints;
 using Paints.PaintItems;
+using UI;
 using UI.Paints;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -18,32 +19,36 @@ public class GameManager : MonoBehaviour
 
     #region Serialized Fields
 
-    [Header("Manual Assignment")] 
-    [SerializeField] private GameObject dataLoadingScreen;
+    [Header("Manual Assignment")] [SerializeField]
+    private GameObject dataLoadingScreen;
+
     [SerializeField] private GameObject sidePopupPanel;
     [SerializeField] private GameObject homeMenu;
 
     [Header("Auto Assigned")] [SerializeField]
     private PaintSpawner paintSpawner;
+
     [SerializeField] private CanvasGroup dataLoadingScreenCanvasGroup;
     [SerializeField] private CanvasGroup sidePopupPanelCanvasGroup;
     [SerializeField] private CanvasGroup homeMenuCanvasGroup;
     [SerializeField] private Animator sidePanelAnimator;
-    
-    [Header("AnimationNames")]
-    [SerializeField] private string sidePanelOpenAnimationName = "SidePanelOpen";
+
+    [Header("AnimationNames")] [SerializeField]
+    private string sidePanelOpenAnimationName = "SidePanelOpen";
+
     [SerializeField] private string sidePanelCloseAnimationName = "SidePanelClose";
 
     #endregion
 
     #region Private Fields
 
+    private CurrentMenu currentMenu = CurrentMenu.Home;
     private PaintInventory paintInventory;
     private bool playerPaintDataLoaded;
     private Dictionary<int, PaintData> paintDatas;
 
     #endregion
-    
+
     private void OnValidate()
     {
         SetupAutoAssignedFields();
@@ -63,20 +68,20 @@ public class GameManager : MonoBehaviour
 
     private void SetupAutoAssignedFields()
     {
-        if(paintSpawner==null)
+        if (paintSpawner == null)
             paintSpawner = FindObjectOfType<PaintSpawner>();
-        
-        if(dataLoadingScreen!=null && dataLoadingScreenCanvasGroup==null)
+
+        if (dataLoadingScreen != null && dataLoadingScreenCanvasGroup == null)
             dataLoadingScreenCanvasGroup = dataLoadingScreen.GetComponent<CanvasGroup>();
-        
-        if(homeMenu!=null && homeMenuCanvasGroup==null)
+
+        if (homeMenu != null && homeMenuCanvasGroup == null)
             homeMenuCanvasGroup = homeMenu.GetComponent<CanvasGroup>();
 
         if (sidePopupPanel != null)
         {
-            if(sidePanelAnimator==null)
+            if (sidePanelAnimator == null)
                 sidePanelAnimator = sidePopupPanel.GetComponent<Animator>();
-            if(sidePopupPanelCanvasGroup==null)
+            if (sidePopupPanelCanvasGroup == null)
                 sidePopupPanelCanvasGroup = sidePopupPanel.GetComponent<CanvasGroup>();
         }
     }
@@ -84,7 +89,7 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
         OpenHomeMenu();
-        
+
         // Load all PaintData assets from Resources folder
         paintDatas = new Dictionary<int, PaintData>();
         var tempPaintDatas = Resources.LoadAll<PaintData>("Paints");
@@ -99,9 +104,10 @@ public class GameManager : MonoBehaviour
         if (paintInventory.IsInitialized && !playerPaintDataLoaded)
             LoadPlayerCollection();
     }
-    
+
     public void OpenHomeMenu()
     {
+        currentMenu = CurrentMenu.Home;
         paintInventory = new PaintInventory();
         OpenLoadingPanel();
         playerPaintDataLoaded = false;
@@ -114,13 +120,14 @@ public class GameManager : MonoBehaviour
         playerPaintDataLoaded = true;
         CloseLoadingPanel();
     }
-    
+
 
     public void OpenCatalogue()
     {
+        currentMenu = CurrentMenu.Catalogue;
         LoadCatalogue();
     }
-    
+
     private void LoadCatalogue()
     {
         paintSpawner.SpawnAllPaints(paintDatas.Values);
@@ -133,7 +140,7 @@ public class GameManager : MonoBehaviour
         sidePopupPanelCanvasGroup.blocksRaycasts = true;
         sidePopupPanelCanvasGroup.alpha = 1;
     }
-    
+
     public void CloseSidePanel()
     {
         sidePanelAnimator.Play(sidePanelCloseAnimationName);
@@ -147,18 +154,12 @@ public class GameManager : MonoBehaviour
         dataLoadingScreenCanvasGroup.blocksRaycasts = true;
         dataLoadingScreenCanvasGroup.alpha = 1;
     }
-    
+
     public void CloseLoadingPanel()
     {
         dataLoadingScreenCanvasGroup.interactable = false;
         dataLoadingScreenCanvasGroup.blocksRaycasts = false;
         dataLoadingScreenCanvasGroup.alpha = 0;
-    }
-    
-    public void TemporaryAddPaint()
-    {
-        paintInventory.SetPaintQuantity(1, 1);
-        paintInventory.SetPaintQuantity(0,2);
     }
 
     public void ClearData()
@@ -174,16 +175,21 @@ public class GameManager : MonoBehaviour
     {
         if (!eventData.IsEventOfType<SetPlayerPaintQuantity>(out var setPlayerPaintQuantity))
             return;
-        
+
         paintInventory.SetPaintQuantity(setPlayerPaintQuantity.Id, setPlayerPaintQuantity.Quantity);
+
+        // If the player is in the home menu and the paint quantity is 0 or 1 reload the ui
+        if (currentMenu == CurrentMenu.Home && setPlayerPaintQuantity.Quantity < 2 )
+            LoadPlayerCollection();
     }
-    
+
     private void OnRequestPaintData(EventData eventData)
     {
         if (!eventData.IsEventOfType<RequestPaintData>(out var requestPaintData))
             return;
-        
-        EventManager.currentManager.AddEvent(new OpenPaintContextMenu(paintDatas[requestPaintData.Id], paintInventory.GetPaintQuantity(requestPaintData.Id)));
+
+        EventManager.currentManager.AddEvent(new OpenPaintContextMenu(paintDatas[requestPaintData.Id],
+            paintInventory.GetPaintQuantity(requestPaintData.Id)));
     }
 
     #endregion
