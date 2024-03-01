@@ -90,14 +90,15 @@ namespace UI.Paints
             }
 
             paintBrandsWithPaints = new List<int>();
+            noPaintsMessage.SetActive(false);
         }
 
         private void HideEmptyPaintBrandContainers()
         {
-            foreach (var paintBrandContainer in paintBrandContainerDictionary.Where(paintBrandContainer =>
-                         !paintBrandsWithPaints.Contains((int)paintBrandContainer.Key)))
+            foreach (var paintBrandContainer in paintBrandContainerDictionary)
             {
-                paintBrandContainer.Value.gameObject.SetActive(false);
+                paintBrandContainer.Value.gameObject.SetActive(
+                    paintBrandsWithPaints.Contains((int)paintBrandContainer.Key));
             }
         }
     }

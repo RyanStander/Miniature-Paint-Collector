@@ -4043,7 +4043,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75631d10eb6b4f2499fb0b12617794d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  adDisplayInterval: 30
+  bannerAdDisplayInterval: 30
+  interstitialAdDisplayInterval: 180
 --- !u!4 &1464952943
 Transform:
   m_ObjectHideFlags: 0
