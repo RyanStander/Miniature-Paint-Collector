@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 331f3537e1604c36a016d2ff4759ac11, type: 3}
-  m_Name: PureRed
+  m_Name: CygnusYellow
   m_EditorClassIdentifier: 
   PaintItem:
-    ID: 23
-    Name: Pure Red
-    Brand: 1
-    PaintSprite: {fileID: 21300000, guid: 54ab62d92e616fd43a68baf449c501fa, type: 3}
-    PaintColor: {r: 0.5764706, g: 0.10196079, b: 0.13725491, a: 1}
+    ID: 10
+    Name: Cygnus Yellow
+    Brand: 5
+    PaintSprite: {fileID: 21300000, guid: 54bfae5c9bd0b25499906342fb9de704, type: 3}
+    PaintColor: {r: 0.95294124, g: 0.89019614, b: 0.25490198, a: 1}
