@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: GnarlsGreen
   m_EditorClassIdentifier: 
   PaintItem:
-    ID: 7
+    ID: 10
     Name: Gnarls Green
     Brand: 5
     PaintSprite: {fileID: 21300000, guid: be8de61179438f74684bd98d59d442c3, type: 3}

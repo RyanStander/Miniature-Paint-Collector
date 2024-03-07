@@ -8,5 +8,6 @@
         Reaper = 3,
         Scale75 = 4,
         PrivateerPress = 5,
+        None=999,
     }
 }

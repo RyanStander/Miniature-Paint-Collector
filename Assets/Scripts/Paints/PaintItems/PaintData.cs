@@ -5,7 +5,7 @@ namespace Paints.PaintItems
     [CreateAssetMenu(fileName = "New Paint", menuName = "Scriptable Objects/Paint Data/Paint")]
     public class PaintData : ScriptableObject
     {
-        public PaintItem PaintItem;
+        public PaintItem PaintItem = new();
 
         private void OnValidate()
         {

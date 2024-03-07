@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: SkorneRed
   m_EditorClassIdentifier: 
   PaintItem:
-    ID: 2
+    ID: 5
     Name: Skorne Red
     Brand: 5
     PaintSprite: {fileID: 21300000, guid: 648de4b5f8b193841bd8cbb6103c91f8, type: 3}

@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 331f3537e1604c36a016d2ff4759ac11, type: 3}
-  m_Name: BloodTrackerBrown
+  m_Name: SolidGold
   m_EditorClassIdentifier: 
   PaintItem:
-    ID: 18
-    Name: Bloodtracker Brown
+    ID: 0
+    Name: Solid Gold
     Brand: 5
-    PaintSprite: {fileID: 21300000, guid: f2b26422c6d5d354294bf1e732d5dafe, type: 3}
-    PaintColor: {r: 0.6313726, g: 0.4039216, b: 0.17254902, a: 1}
+    PaintSprite: {fileID: 21300000, guid: effd137a7262e924a946b2ce4622de08, type: 3}
+    PaintColor: {r: 0.93725497, g: 0.87843144, b: 0.5058824, a: 1}

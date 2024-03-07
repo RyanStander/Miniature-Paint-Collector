@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: AmethysRose
   m_EditorClassIdentifier: 
   PaintItem:
-    ID: 19
+    ID: 22
     Name: Amethys Rose
     Brand: 5
     PaintSprite: {fileID: 21300000, guid: 3ca73a7ba73b0e84b966111a439413c1, type: 3}
