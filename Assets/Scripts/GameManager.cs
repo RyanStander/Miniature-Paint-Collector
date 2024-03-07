@@ -111,21 +111,22 @@ public class GameManager : MonoBehaviour
         paintInventory = new PaintInventory();
         OpenLoadingPanel();
         playerPaintDataLoaded = false;
+
+        StartCoroutine(paintSpawner.ToggleContentActive(true));
     }
-
-
+    
     private void LoadPlayerCollection()
     {
         paintSpawner.SpawnPlayerCollection(paintInventory.GetPaintQuantities(), paintDatas.Values);
         playerPaintDataLoaded = true;
         CloseLoadingPanel();
     }
-
-
+    
     public void OpenCatalogue()
     {
         currentMenu = CurrentMenu.Catalogue;
         LoadCatalogue();
+        StartCoroutine(paintSpawner.ToggleContentActive(false));
     }
 
     private void LoadCatalogue()
@@ -179,7 +180,7 @@ public class GameManager : MonoBehaviour
         paintInventory.SetPaintQuantity(setPlayerPaintQuantity.Id, setPlayerPaintQuantity.Quantity);
 
         // If the player is in the home menu and the paint quantity is 0 or 1 reload the ui
-        if (currentMenu == CurrentMenu.Home && setPlayerPaintQuantity.Quantity < 2 )
+        if (currentMenu == CurrentMenu.Home && setPlayerPaintQuantity.Quantity < 2)
             LoadPlayerCollection();
     }
 

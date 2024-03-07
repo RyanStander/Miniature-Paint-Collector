@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Paints;
@@ -63,6 +64,7 @@ namespace UI.Paints
                     SpawnPaintInBrand(paintBrandContainerDictionary[paintData.PaintItem.Brand], paintData);
             }
 
+            ToggleContentActive(false);
             HideEmptyPaintBrandContainers();
         }
 
@@ -100,6 +102,26 @@ namespace UI.Paints
             {
                 paintBrandContainer.Value.gameObject.SetActive(
                     paintBrandsWithPaints.Contains((int)paintBrandContainer.Key));
+                paintBrandContainer.Value.ContentTransform.gameObject.SetActive(
+                    paintBrandsWithPaints.Contains((int)paintBrandContainer.Key));
+            }
+        }
+
+        public IEnumerator ToggleContentActive(bool active)
+        {
+            //wait for the next frame to allow the paint items to properly load
+            yield return new WaitForSeconds(0.01f);
+            
+            foreach (var paintBrandContainer in paintBrandContainerDictionary.Values)
+            {
+                if (active && !paintBrandContainer.gameObject.activeSelf)
+                {
+                    paintBrandContainer.ContentTransform.gameObject.SetActive(false);
+                }
+                else
+                {
+                    paintBrandContainer.ContentTransform.gameObject.SetActive(active);
+                }
             }
         }
     }
