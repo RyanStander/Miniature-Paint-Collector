@@ -29,32 +29,27 @@ namespace Paints.PaintItems
             // List to keep track of used IDs
             HashSet<int> usedIDs = new HashSet<int>();
 
-            // Iterate over paints, ensuring unique and incremental IDs
-            int nextID = 0;
+            // Find the lowest available ID
+            int nextID = 1; // Start from 1, as IDs should not be less than 1
             foreach (PaintData paint in sortedPaints)
             {
                 // Ensure negative or duplicate IDs are updated
-                if (paint.PaintItem.ID < 0 || usedIDs.Contains(paint.PaintItem.ID))
+                if (paint.PaintItem.ID < 1 || usedIDs.Contains(paint.PaintItem.ID))
                 {
+                    while (usedIDs.Contains(nextID))
+                    {
+                        nextID++;
+                    }
                     paint.PaintItem.ID = nextID;
                 }
 
-                // Find the next available ID
-                while (usedIDs.Contains(nextID))
-                {
-                    nextID++;
-                } 
- 
-                // Assign new unique ID
-                EditorUtility.SetDirty(paint);
-                paint.PaintItem.ID = nextID;
-                usedIDs.Add(nextID);
+                usedIDs.Add(paint.PaintItem.ID);
                 nextID++;
             }
 
             AssetDatabase.SaveAssets();
             AssetDatabase.Refresh();
-        }
+        } 
     }
 #endif
 }

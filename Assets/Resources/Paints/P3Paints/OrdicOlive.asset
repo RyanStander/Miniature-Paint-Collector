@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: OrdicOlive
   m_EditorClassIdentifier: 
   PaintItem:
-    ID: 6
+    ID: 2
     Name: Ordic Olive
     Brand: 5
     PaintSprite: {fileID: 21300000, guid: 1fc4866fa0352f84e9ba21d61c2c767c, type: 3}
