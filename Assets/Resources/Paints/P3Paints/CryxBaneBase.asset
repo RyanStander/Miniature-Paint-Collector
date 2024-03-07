@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 331f3537e1604c36a016d2ff4759ac11, type: 3}
+  m_Name: CryxBaneBase
+  m_EditorClassIdentifier: 
+  PaintItem:
+    ID: 158
+    Name: Cryx Bane Base
+    Brand: 5
+    PaintSprite: {fileID: 21300000, guid: fa59eaf6038edb64592e5c2f504f937d, type: 3}
+    PaintColor: {r: 0.1764706, g: 0.21960786, b: 0.13725491, a: 1}

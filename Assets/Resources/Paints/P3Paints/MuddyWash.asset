@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 331f3537e1604c36a016d2ff4759ac11, type: 3}
+  m_Name: MuddyWash
+  m_EditorClassIdentifier: 
+  PaintItem:
+    ID: 129
+    Name: Muddy Wash
+    Brand: 5
+    PaintSprite: {fileID: 21300000, guid: f7267c5f8a3722e4e9be6af06247d22e, type: 3}
+    PaintColor: {r: 0.5019608, g: 0.4431373, b: 0.36078432, a: 1}

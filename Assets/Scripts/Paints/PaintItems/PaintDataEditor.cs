@@ -47,7 +47,7 @@ namespace Paints.PaintItems
                     paint.PaintItem.ID = GetNextAvailableID(paints);
                 }
             }
- 
+
             // Assign unique IDs to duplicates
             foreach (var kvp in duplicateIDMap)
             {
@@ -62,7 +62,7 @@ namespace Paints.PaintItems
                         {
                             uniqueID = GetNextAvailableID(paints);
                         }
-                        
+
                         EditorUtility.SetDirty(paint);
                         paint.PaintItem.ID = uniqueID;
                         uniqueID++;
