@@ -30,7 +30,7 @@ namespace Paints.PaintItems
             // Dictionary to keep track of duplicate IDs
             Dictionary<int, List<PaintData>> duplicateIDMap = new Dictionary<int, List<PaintData>>();
 
-            // Find duplicate IDs
+            // Find duplicate IDs and check for IDs less than 1
             foreach (PaintData paint in sortedPaints)
             {
                 if (!duplicateIDMap.ContainsKey(paint.PaintItem.ID))
@@ -39,8 +39,15 @@ namespace Paints.PaintItems
                 }
 
                 duplicateIDMap[paint.PaintItem.ID].Add(paint);
-            }
 
+                // If ID is less than 1, mark it for change
+                if (paint.PaintItem.ID < 1)
+                {
+                    EditorUtility.SetDirty(paint);
+                    paint.PaintItem.ID = GetNextAvailableID(paints);
+                }
+            }
+ 
             // Assign unique IDs to duplicates
             foreach (var kvp in duplicateIDMap)
             {
@@ -55,7 +62,8 @@ namespace Paints.PaintItems
                         {
                             uniqueID = GetNextAvailableID(paints);
                         }
-
+                        
+                        EditorUtility.SetDirty(paint);
                         paint.PaintItem.ID = uniqueID;
                         uniqueID++;
                     }
