@@ -59,7 +59,8 @@ namespace UI.Paints
             // Iterate through each PaintData and spawn paint items
             foreach (var paintData in paintDatas)
             {
-                SpawnPaintInBrand(paintBrandContainerDictionary[paintData.PaintItem.Brand], paintData);
+                if (paintBrandContainerDictionary.ContainsKey(paintData.PaintItem.Brand))
+                    SpawnPaintInBrand(paintBrandContainerDictionary[paintData.PaintItem.Brand], paintData);
             }
 
             HideEmptyPaintBrandContainers();
