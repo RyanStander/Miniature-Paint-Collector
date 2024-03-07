@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: TrollbloodBase
   m_EditorClassIdentifier: 
   PaintItem:
-    ID: 4
+    ID: 8
     Name: Trollblood Base
     Brand: 5
     PaintSprite: {fileID: 21300000, guid: d779bed0c2ea1824b8fc7e5580abf9bd, type: 3}

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: CoalBlack
   m_EditorClassIdentifier: 
   PaintItem:
-    ID: 16
+    ID: 19
     Name: Coal Black
     Brand: 5
     PaintSprite: {fileID: 21300000, guid: 95311cf672c8aff46802759d39fb841a, type: 3}

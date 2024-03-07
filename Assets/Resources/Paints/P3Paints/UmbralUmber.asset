@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: UmbralUmber
   m_EditorClassIdentifier: 
   PaintItem:
-    ID: 24
+    ID: 27
     Name: Umbral Umber
     Brand: 5
     PaintSprite: {fileID: 21300000, guid: c06dbcd557fbdbe429569a97c7645960, type: 3}

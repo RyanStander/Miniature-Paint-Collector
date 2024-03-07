@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: MattBlack
   m_EditorClassIdentifier: 
   PaintItem:
-    ID: 23
+    ID: 26
     Name: Matt Black
     Brand: 1
     PaintSprite: {fileID: 21300000, guid: 83c91235bd6c42440bfd4c1d8858acb3, type: 3}

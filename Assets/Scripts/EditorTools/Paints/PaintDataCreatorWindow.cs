@@ -11,7 +11,8 @@ namespace EditorTools.Paints
 {
     public class PaintDataCreatorWindow : EditorWindow
     {
-        private List<Sprite> spriteList = new();
+        private List<Sprite> spriteList = new List<Sprite>();
+        private List<Color> colorList = new List<Color>(); // List to store colors for each sprite
         private PaintBrand selectedBrand = PaintBrand.None; // Assuming PaintBrand enum is defined elsewhere
         private string savePath = "Assets/Resources/Paints/";
 
@@ -52,6 +53,7 @@ namespace EditorTools.Paints
                             if (sprite != null)
                             {
                                 spriteList.Add(sprite);
+                                colorList.Add(Color.white); // Add default color (white) for each sprite
                             }
                         }
                     }
@@ -60,15 +62,20 @@ namespace EditorTools.Paints
                     break;
             }
 
-            // Display the list of sprites
+            // Display the list of sprites and color pickers
             scrollPosition = GUILayout.BeginScrollView(scrollPosition);
-            foreach (var sprite in spriteList)
+            for (int i = 0; i < spriteList.Count; i++)
             {
                 GUILayout.BeginHorizontal();
-                GUILayout.Label(sprite.name); // Display only the name of the sprite
+                GUILayout.Label(spriteList[i].name); // Display only the name of the sprite
+                
+                // Color picker for each sprite
+                colorList[i] = EditorGUILayout.ColorField(colorList[i]);
+
                 if (GUILayout.Button("Remove"))
                 {
-                    spriteList.Remove(sprite);
+                    spriteList.RemoveAt(i);
+                    colorList.RemoveAt(i); // Remove corresponding color
                     break;
                 }
 
@@ -96,8 +103,11 @@ namespace EditorTools.Paints
 
         private void CreatePaints()
         {
-            foreach (var sprite in spriteList)
+            for (int i = 0; i < spriteList.Count; i++)
             {
+                var sprite = spriteList[i];
+                var color = colorList[i]; // Get color for current sprite
+
                 // Create a new PaintData instance
                 var paintData = ScriptableObject.CreateInstance<PaintData>();
 
@@ -118,6 +128,9 @@ namespace EditorTools.Paints
                 // Set paint sprite
                 paintData.PaintItem.PaintSprite = sprite;
 
+                // Set custom color
+                paintData.PaintItem.PaintColor = color; 
+
                 // Create asset file for PaintData
                 var assetPath = savePath + paintData.name + ".asset";
                 AssetDatabase.CreateAsset(paintData, assetPath);
@@ -126,8 +139,9 @@ namespace EditorTools.Paints
             // Refresh asset database to show newly created assets
             AssetDatabase.Refresh();
 
-            // Clear sprite list after creating PaintData
+            // Clear sprite and color lists after creating PaintData
             spriteList.Clear();
+            colorList.Clear();
 
             // Notify user that creation is complete
             Debug.Log("Paints created successfully!");
