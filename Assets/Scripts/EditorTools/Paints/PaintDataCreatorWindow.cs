@@ -3,12 +3,10 @@ using Paints;
 using Paints.PaintItems;
 using UnityEditor;
 using UnityEngine;
-using System.IO;
-using System.Linq;
-using UnityEditorInternal;
 
 namespace EditorTools.Paints
 {
+    #if UNITY_EDITOR
     public class PaintDataCreatorWindow : EditorWindow
     {
         private List<Sprite> spriteList = new List<Sprite>();
@@ -165,4 +163,5 @@ namespace EditorTools.Paints
             return newText.ToString();
         }
     }
+    #endif
 }
