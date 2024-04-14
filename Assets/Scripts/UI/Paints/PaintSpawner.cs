@@ -8,11 +8,15 @@ using UnityEngine;
 
 namespace UI.Paints
 {
+    /// <summary>
+    /// Spawns the paints in the paint containers based on whether its displaying the catalogue, inventory or wishlist
+    /// </summary>
     public class PaintSpawner : MonoBehaviour
     {
         [SerializeField] private GameObject paintItemPrefab;
         [SerializeField] private PaintBrandContainer[] paintBrandContainers;
         [SerializeField] private GameObject noPaintsMessage;
+        [SerializeField] private GameObject noWishlistedPaintsMessage;
 
         private Dictionary<PaintBrand, PaintBrandContainer> paintBrandContainerDictionary = new();
         private List<int> paintBrandsWithPaints = new();
@@ -33,24 +37,39 @@ namespace UI.Paints
 
         public void SpawnPlayerCollection(Dictionary<int, float> paintQuantities, IEnumerable<PaintData> paintDatas)
         {
+            SpawnPaintsBasedOnIds(paintQuantities.Keys, paintDatas);
+
+            if (paintBrandsWithPaints.Count == 0)
+            {
+                noPaintsMessage.SetActive(true);
+            }
+        }
+
+        public void SpawnPlayerWishlist(List<int> wishlistedPaints, IEnumerable<PaintData> paintDatas)
+        {
+            SpawnPaintsBasedOnIds(wishlistedPaints, paintDatas);
+
+            if (paintBrandsWithPaints.Count == 0)
+            {
+                noWishlistedPaintsMessage.SetActive(true);
+            }
+        }
+        
+        private void SpawnPaintsBasedOnIds(ICollection<int> paintIds, IEnumerable<PaintData> paintDatas)
+        {
             ResetPaintUIData();
 
             // Iterate through each PaintData and spawn paint items
             foreach (var paintData in paintDatas)
             {
-                //Skip paint if it's not in the player's collection
-                if (!paintQuantities.ContainsKey(paintData.PaintItem.ID))
+                //Skip paint if it's not in the player's wishlist
+                if (!paintIds.Contains(paintData.PaintItem.ID))
                     continue;
 
                 SpawnPaintInBrand(paintBrandContainerDictionary[paintData.PaintItem.Brand], paintData);
             }
 
             HideEmptyPaintBrandContainers();
-
-            if (paintBrandsWithPaints.Count == 0)
-            {
-                noPaintsMessage.SetActive(true);
-            }
         }
 
         public void SpawnAllPaints(IEnumerable<PaintData> paintDatas)
@@ -111,7 +130,7 @@ namespace UI.Paints
         {
             //wait for the next frame to allow the paint items to properly load
             yield return new WaitForSeconds(0.01f);
-            
+
             foreach (var paintBrandContainer in paintBrandContainerDictionary.Values)
             {
                 if (active && !paintBrandContainer.gameObject.activeSelf)

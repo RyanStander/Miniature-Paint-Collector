@@ -76,6 +76,11 @@ namespace UI.Paints
 
             EventManager.currentManager.AddEvent(new SetPlayerPaintQuantity(selectedPaint.PaintItem.ID, paintQuantity));
         }
+        
+        public void WishlistPaint()
+        {
+            EventManager.currentManager.AddEvent(new WishlistPaint(selectedPaint.PaintItem.ID));
+        }
 
         public void CloseDisplay()
         {

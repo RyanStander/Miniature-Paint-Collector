@@ -6,5 +6,6 @@ namespace Events
         SetPlayerPaintQuantity=0,
         OpenPaintContextMenu = 1,
         RequestPaintData = 2,
+        WishlistPaint = 3,
     }
 }

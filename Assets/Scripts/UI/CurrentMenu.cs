@@ -4,6 +4,7 @@
     {
         Home,
         Catalogue,
+        Wishlist,
         Settings,
     }
 }

@@ -58,12 +58,14 @@ public class GameManager : MonoBehaviour
     {
         EventManager.currentManager.Subscribe(EventIdentifiers.SetPlayerPaintQuantity, OnSetPlayerPaintQuantity);
         EventManager.currentManager.Subscribe(EventIdentifiers.RequestPaintData, OnRequestPaintData);
+        EventManager.currentManager.Subscribe(EventIdentifiers.WishlistPaint, OnWishlistPaint);
     }
 
     private void OnDisable()
     {
         EventManager.currentManager.Unsubscribe(EventIdentifiers.SetPlayerPaintQuantity, OnSetPlayerPaintQuantity);
         EventManager.currentManager.Unsubscribe(EventIdentifiers.RequestPaintData, OnRequestPaintData);
+        EventManager.currentManager.Unsubscribe(EventIdentifiers.WishlistPaint, OnWishlistPaint);
     }
 
     private void SetupAutoAssignedFields()
@@ -114,14 +116,14 @@ public class GameManager : MonoBehaviour
 
         StartCoroutine(paintSpawner.ToggleContentActive(true));
     }
-    
+
     private void LoadPlayerCollection()
     {
         paintSpawner.SpawnPlayerCollection(paintInventory.GetPaintQuantities(), paintDatas.Values);
         playerPaintDataLoaded = true;
         CloseLoadingPanel();
     }
-    
+
     public void OpenCatalogue()
     {
         currentMenu = CurrentMenu.Catalogue;
@@ -132,6 +134,18 @@ public class GameManager : MonoBehaviour
     private void LoadCatalogue()
     {
         paintSpawner.SpawnAllPaints(paintDatas.Values);
+    }
+
+    public void OpenWishlist()
+    {
+        currentMenu = CurrentMenu.Wishlist;
+        LoadWishlist();
+        StartCoroutine(paintSpawner.ToggleContentActive(false));
+    }
+
+    private void LoadWishlist()
+    {
+        paintSpawner.SpawnPlayerWishlist(paintInventory.GetWishlistedPaints(), paintDatas.Values);
     }
 
     public void OpenSidePanel()
@@ -165,7 +179,7 @@ public class GameManager : MonoBehaviour
 
     public void ClearData()
     {
-        paintInventory.DeletePaintQuantityData();
+        paintInventory.ClearData();
         SceneManager.LoadScene(0);
     }
 
@@ -182,6 +196,14 @@ public class GameManager : MonoBehaviour
         // If the player is in the home menu and the paint quantity is 0 or 1 reload the ui
         if (currentMenu == CurrentMenu.Home && setPlayerPaintQuantity.Quantity < 2)
             LoadPlayerCollection();
+    }
+
+    private void OnWishlistPaint(EventData eventData)
+    {
+        if (!eventData.IsEventOfType<WishlistPaint>(out var wishlistPaint))
+            return;
+
+        paintInventory.WishlistPaint(wishlistPaint.Id);
     }
 
     private void OnRequestPaintData(EventData eventData)

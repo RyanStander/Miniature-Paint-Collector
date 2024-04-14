@@ -17,6 +17,15 @@ namespace Events
         }
     }
     
+    public class WishlistPaint : EventData
+    {
+        public readonly int Id;
+        public WishlistPaint(int id) : base(EventIdentifiers.WishlistPaint)
+        {
+            Id = id;
+        }
+    }
+    
     public class RequestPaintData : EventData
     {
         public readonly int Id;

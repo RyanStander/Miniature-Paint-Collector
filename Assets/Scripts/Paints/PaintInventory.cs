@@ -9,13 +9,44 @@ namespace Paints
     public class PaintInventory
     {
         private Dictionary<int, float> paintQuantities;
+        private List<int> wishlistedPaints;
         public bool IsInitialized;
+
+        #region Setup
 
         public PaintInventory()
         {
             paintQuantities = new Dictionary<int, float>();
+            wishlistedPaints = new List<int>();
             LoadPaintQuantities();
+            LoadWishlistedPaints();
         }
+
+        private async void LoadPaintQuantities()
+        {
+            var playerData =
+                await CloudSaveService.Instance.Data.Player.LoadAsync(new HashSet<string> { "PaintQuantities" });
+            IsInitialized = true;
+            if (playerData.TryGetValue("PaintQuantities", out var keyName))
+            {
+                paintQuantities = new Dictionary<int, float>(keyName.Value.GetAs<Dictionary<int, float>>());
+            }
+        }
+
+        private async void LoadWishlistedPaints()
+        {
+            var playerData =
+                await CloudSaveService.Instance.Data.Player.LoadAsync(new HashSet<string> { "WishlistedPaints" });
+            IsInitialized = true;
+            if (playerData.TryGetValue("WishlistedPaints", out var keyName))
+            {
+                wishlistedPaints = new List<int>(keyName.Value.GetAs<List<int>>());
+            }
+        }
+
+        #endregion
+
+        #region Inventory Methods
 
         public async void SetPaintQuantity(int paintID, float quantity)
         {
@@ -38,36 +69,74 @@ namespace Paints
             return paintQuantities;
         }
 
+        #endregion
+
+        #region Wishlist Methods
+
+        public bool HasPaintWishlisted(int paintID)
+        {
+            return wishlistedPaints.Contains(paintID);
+        }
+
+        public List<int> GetWishlistedPaints()
+        {
+            return wishlistedPaints;
+        }
+
+        public async void WishlistPaint(int paintID)
+        {
+            if (wishlistedPaints.Contains(paintID))
+                wishlistedPaints.Remove(paintID);
+            else
+                wishlistedPaints.Add(paintID);
+
+            await SaveWishlistedPaints();
+        }
+
+        #endregion
+
+        #region Save Methods
+
         private async Task SavePaintQuantities()
         {
             var data = new Dictionary<string, object> { { "PaintQuantities", paintQuantities } };
             await CloudSaveService.Instance.Data.Player.SaveAsync(data);
         }
 
-        private async void LoadPaintQuantities()
+        private async Task SaveWishlistedPaints()
         {
-            var playerData =
-                await CloudSaveService.Instance.Data.Player.LoadAsync(new HashSet<string> { "PaintQuantities" });
-            IsInitialized = true;
-            if (playerData.TryGetValue("PaintQuantities", out var keyName))
-            {
-                paintQuantities = new Dictionary<int, float>(keyName.Value.GetAs<Dictionary<int, float>>());
-            }
+            var data = new Dictionary<string, object> { { "WishlistedPaints", wishlistedPaints } };
+            await CloudSaveService.Instance.Data.Player.SaveAsync(data);
         }
 
-        public async void DeletePaintQuantityData()
+        #endregion
+
+        #region Deletion Methods
+
+        public void ClearData()
+        {
+            DeletePaintQuantityData();
+            DeleteWishlistedPaints();
+        }
+
+        //Inventory
+        private async void DeletePaintQuantityData()
         {
             await CloudSaveService.Instance.Data.Player.DeleteAsync("PaintQuantities");
             paintQuantities.Clear(); // Clear local data as well
         }
+
+        //Wishlist
+        private async void DeleteWishlistedPaints()
+        {
+            await CloudSaveService.Instance.Data.Player.DeleteAsync("WishlistedPaints");
+            wishlistedPaints.Clear(); // Clear local data as well
+        }
+
+        #endregion
     }
 }
 
 /*
-    Data saving example:
-
-    var data = new Dictionary<string, object>{ { "MySaveKey", "HelloWorld" } };
-    await CloudSaveService.Instance.Data.ForceSaveAsync(data);
-
     Documentation: https://docs.unity.com/ugs/en-us/manual/cloud-save/manual
 */

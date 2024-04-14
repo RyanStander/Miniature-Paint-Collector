@@ -8,14 +8,14 @@ namespace Ads
     public static class AdmobAdsScript
     {
 #if UNITY_ANDROID
-        //private static string bannerID = "ca-app-pub-1709328667164551/4901784331";//Real ID
-        private static string bannerID = "ca-app-pub-3940256099942544/6300978111";//Test ID
-        //private static string interstitialID = "ca-app-pub-1709328667164551/7046416153";//Real ID
-        private static string interstitialID = "ca-app-pub-3940256099942544/1033173712";//Test ID
+        private static string bannerID = "ca-app-pub-1709328667164551/4901784331"; //Real ID
+        //private static string bannerID = "ca-app-pub-3940256099942544/6300978111";//Test ID
+        private static string interstitialID = "ca-app-pub-1709328667164551/7046416153"; //Real ID
+        //private static string interstitialID = "ca-app-pub-3940256099942544/1033173712";//Test ID
 #else
 private string bannerID = "unexpected_platform";
 #endif
-        public static BannerView bannerView { get; private set; } 
+        public static BannerView bannerView { get; private set; }
         public static InterstitialAd interstitialAd { get; private set; }
 
         #region Banner
@@ -23,7 +23,7 @@ private string bannerID = "unexpected_platform";
         public static void LoadBannerAd()
         {
             CreateBannerView();
-            
+
             ListenToBannerEvents();
             if (bannerView == null)
             {
@@ -32,7 +32,7 @@ private string bannerID = "unexpected_platform";
 
             var adRequest = new AdRequest();
             //adRequest.Keywords.Add("unity-admob-sample");
-            
+
             bannerView.LoadAd(adRequest);
         }
 
@@ -42,6 +42,7 @@ private string bannerID = "unexpected_platform";
             {
                 DestroyBannerAd();
             }
+
             bannerView = new BannerView(bannerID, AdSize.Banner, AdPosition.Bottom);
         }
 
@@ -67,26 +68,14 @@ private string bannerID = "unexpected_platform";
                     adValue.CurrencyCode));
             };
             // Raised when an impression is recorded for an ad.
-            bannerView.OnAdImpressionRecorded += () =>
-            {
-                Debug.Log("Banner view recorded an impression.");
-            };
+            bannerView.OnAdImpressionRecorded += () => { Debug.Log("Banner view recorded an impression."); };
             // Raised when a click is recorded for an ad.
-            bannerView.OnAdClicked += () =>
-            {
-                Debug.Log("Banner view was clicked.");
-            };
+            bannerView.OnAdClicked += () => { Debug.Log("Banner view was clicked."); };
             // Raised when an ad opened full screen content.
-            bannerView.OnAdFullScreenContentOpened += () =>
-            {
-                Debug.Log("Banner view full screen content opened.");
-            };
+            bannerView.OnAdFullScreenContentOpened += () => { Debug.Log("Banner view full screen content opened."); };
             // Raised when the ad closed full screen content.
-            bannerView.OnAdFullScreenContentClosed += () =>
-            {
-                Debug.Log("Banner view full screen content closed.");
-            };
-            
+            bannerView.OnAdFullScreenContentClosed += () => { Debug.Log("Banner view full screen content closed."); };
+
             Debug.Log("Listening to banner events");
         }
 
@@ -110,7 +99,7 @@ private string bannerID = "unexpected_platform";
                 interstitialAd.Destroy();
                 interstitialAd = null;
             }
-            
+
             var adRequest = new AdRequest();
 
             InterstitialAd.Load(interstitialID, adRequest, (InterstitialAd ad, LoadAdError error) =>
@@ -122,7 +111,6 @@ private string bannerID = "unexpected_platform";
 
                 interstitialAd = ad;
                 InterstitialEvent(interstitialAd);
-
             });
         }
 
@@ -139,7 +127,7 @@ private string bannerID = "unexpected_platform";
                 return false;
             }
         }
-        
+
         public static void DestroyInterstitialAd()
         {
             if (interstitialAd != null)
@@ -159,15 +147,9 @@ private string bannerID = "unexpected_platform";
                     adValue.CurrencyCode));
             };
             // Raised when an impression is recorded for an ad.
-            interstitialAd.OnAdImpressionRecorded += () =>
-            {
-                Debug.Log("Interstitial ad recorded an impression.");
-            };
+            interstitialAd.OnAdImpressionRecorded += () => { Debug.Log("Interstitial ad recorded an impression."); };
             // Raised when a click is recorded for an ad.
-            interstitialAd.OnAdClicked += () =>
-            {
-                Debug.Log("Interstitial ad was clicked.");
-            };
+            interstitialAd.OnAdClicked += () => { Debug.Log("Interstitial ad was clicked."); };
             // Raised when an ad opened full screen content.
             interstitialAd.OnAdFullScreenContentOpened += () =>
             {
