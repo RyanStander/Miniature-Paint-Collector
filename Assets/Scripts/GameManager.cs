@@ -103,18 +103,29 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        if (paintInventory.IsInitialized && !playerPaintDataLoaded)
-            LoadPlayerCollection();
+        switch (currentMenu)
+        {
+            case CurrentMenu.Home:
+                if (paintInventory.IsInitialized && !playerPaintDataLoaded)
+                    LoadPlayerCollection();
+                break;
+            case CurrentMenu.Catalogue:
+                break;
+            case CurrentMenu.Wishlist:
+                if (paintInventory.IsInitialized && !playerPaintDataLoaded)
+                    LoadWishlist();
+                break;
+            case CurrentMenu.Settings:
+                break;
+            default:
+                throw new ArgumentOutOfRangeException();
+        }
     }
 
     public void OpenHomeMenu()
     {
         currentMenu = CurrentMenu.Home;
-        paintInventory = new PaintInventory();
-        OpenLoadingPanel();
-        playerPaintDataLoaded = false;
-
-        StartCoroutine(paintSpawner.ToggleContentActive(true));
+        LoadSaveData();
     }
 
     private void LoadPlayerCollection()
@@ -139,13 +150,23 @@ public class GameManager : MonoBehaviour
     public void OpenWishlist()
     {
         currentMenu = CurrentMenu.Wishlist;
-        LoadWishlist();
-        StartCoroutine(paintSpawner.ToggleContentActive(false));
+        LoadSaveData();
     }
 
     private void LoadWishlist()
     {
         paintSpawner.SpawnPlayerWishlist(paintInventory.GetWishlistedPaints(), paintDatas.Values);
+        playerPaintDataLoaded = true;
+        CloseLoadingPanel();
+    }
+
+    private void LoadSaveData()
+    {
+        paintInventory = new PaintInventory();
+        OpenLoadingPanel();
+        playerPaintDataLoaded = false;
+
+        StartCoroutine(paintSpawner.ToggleContentActive(true));
     }
 
     public void OpenSidePanel()

@@ -18,30 +18,37 @@ namespace Paints
         {
             paintQuantities = new Dictionary<int, float>();
             wishlistedPaints = new List<int>();
-            LoadPaintQuantities();
-            LoadWishlistedPaints();
+            var paintQuantitiesTask = LoadPaintQuantities();
+            var wishlistedPaintsTask = LoadWishlistedPaints();
+            
+            IsDataLoaded(paintQuantitiesTask, wishlistedPaintsTask);
         }
 
-        private async void LoadPaintQuantities()
+        private async Task LoadPaintQuantities()
         {
             var playerData =
                 await CloudSaveService.Instance.Data.Player.LoadAsync(new HashSet<string> { "PaintQuantities" });
-            IsInitialized = true;
             if (playerData.TryGetValue("PaintQuantities", out var keyName))
             {
                 paintQuantities = new Dictionary<int, float>(keyName.Value.GetAs<Dictionary<int, float>>());
             }
         }
 
-        private async void LoadWishlistedPaints()
+        private async Task LoadWishlistedPaints()
         {
             var playerData =
                 await CloudSaveService.Instance.Data.Player.LoadAsync(new HashSet<string> { "WishlistedPaints" });
-            IsInitialized = true;
             if (playerData.TryGetValue("WishlistedPaints", out var keyName))
             {
                 wishlistedPaints = new List<int>(keyName.Value.GetAs<List<int>>());
             }
+        }
+        
+        private async void IsDataLoaded(Task paintQuantitiesTask, Task wishlistedPaintsTask)
+        {
+            await Task.WhenAll(paintQuantitiesTask, wishlistedPaintsTask);
+            
+            IsInitialized = true;
         }
 
         #endregion

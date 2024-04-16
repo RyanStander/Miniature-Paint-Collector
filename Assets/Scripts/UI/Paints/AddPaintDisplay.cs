@@ -10,6 +10,8 @@ namespace UI.Paints
     public class AddPaintDisplay : MonoBehaviour
     {
         [SerializeField] private Image paintDisplay;
+        [SerializeField] private Image paintDisplayMaskImage;
+        [SerializeField] private Mask paintDisplayMask;
         [SerializeField] private TextMeshProUGUI paintNameText;
         [SerializeField] private TextMeshProUGUI paintBrandText;
         [SerializeField] private TextMeshProUGUI paintQuantityText;
@@ -40,6 +42,14 @@ namespace UI.Paints
         {
             selectedPaint = paintData;
             paintQuantity = quantity;
+            
+            if (paintData.PaintItem.PaintSpriteMask != null)
+                paintDisplayMaskImage.sprite = paintData.PaintItem.PaintSpriteMask;
+            else
+            {
+                paintDisplayMaskImage.enabled = false;
+                paintDisplayMask.enabled = false;
+            }
 
             paintDisplay.sprite = paintData.PaintItem.PaintSprite;
             paintDisplay.color = quantity < 1 ? Color.gray : Color.white;

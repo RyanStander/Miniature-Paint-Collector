@@ -113,6 +113,7 @@ namespace UI.Paints
 
             paintBrandsWithPaints = new List<int>();
             noPaintsMessage.SetActive(false);
+            noWishlistedPaintsMessage.SetActive(false);
         }
 
         private void HideEmptyPaintBrandContainers()

@@ -12,6 +12,7 @@ namespace Paints.PaintItems
         public string Name;
         public PaintBrand Brand;
         public Sprite PaintSprite;
+        public Sprite PaintSpriteMask;
         public Color PaintColor = Color.white;
 
         #endregion
