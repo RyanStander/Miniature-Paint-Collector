@@ -13,10 +13,6 @@ using UnityEngine.SceneManagement;
 /// </summary>
 public class GameManager : MonoBehaviour
 {
-    #region Public Fields
-
-    #endregion
-
     #region Serialized Fields
 
     [Header("Manual Assignment")] [SerializeField]

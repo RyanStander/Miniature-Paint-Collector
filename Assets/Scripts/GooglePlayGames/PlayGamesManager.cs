@@ -9,7 +9,7 @@ namespace GooglePlayGames
     {
         public static void SignIn()
         {
-            PlayGamesPlatform.Instance.Authenticate(ProcessAuthentication);
+            //PlayGamesPlatform.Instance.Authenticate(ProcessAuthentication);
         }
 
         internal static void ProcessAuthentication(SignInStatus status)
