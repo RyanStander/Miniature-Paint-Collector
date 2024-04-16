@@ -17,4 +17,5 @@ MonoBehaviour:
     Name: Iosan Green
     Brand: 5
     PaintSprite: {fileID: 21300000, guid: 47a22b51c2905654a835554033953d3a, type: 3}
+    PaintSpriteMask: {fileID: 21300000, guid: fe649ecd4e5dd8a4eb253dc054837d28, type: 3}
     PaintColor: {r: 0.14117648, g: 0.654902, b: 0.32156864, a: 1}

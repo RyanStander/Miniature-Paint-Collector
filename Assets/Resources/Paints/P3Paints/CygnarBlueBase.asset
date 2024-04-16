@@ -17,4 +17,5 @@ MonoBehaviour:
     Name: Cygnar Blue Base
     Brand: 5
     PaintSprite: {fileID: 21300000, guid: 5e98cacf9cc0abe4b96241dbe8ddd588, type: 3}
+    PaintSpriteMask: {fileID: 21300000, guid: fe649ecd4e5dd8a4eb253dc054837d28, type: 3}
     PaintColor: {r: 0.08235294, g: 0.29803923, b: 0.59607846, a: 1}

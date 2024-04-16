@@ -17,4 +17,5 @@ MonoBehaviour:
     Name: Idrian Flesh
     Brand: 5
     PaintSprite: {fileID: 21300000, guid: 57804a420045ad04a9989f46230bc4e5, type: 3}
+    PaintSpriteMask: {fileID: 21300000, guid: 53929a5a543bb024fb4ef278d95b0c14, type: 3}
     PaintColor: {r: 0.6039216, g: 0.3647059, b: 0.21176472, a: 1}

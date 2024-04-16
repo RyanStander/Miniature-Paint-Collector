@@ -17,4 +17,5 @@ MonoBehaviour:
     Name: Eldritch
     Brand: 5
     PaintSprite: {fileID: 21300000, guid: 3982f40cfe4c80444b06e68b9f7c38e9, type: 3}
+    PaintSpriteMask: {fileID: 21300000, guid: fe649ecd4e5dd8a4eb253dc054837d28, type: 3}
     PaintColor: {r: 0, g: 0.48235297, b: 0.36078432, a: 1}

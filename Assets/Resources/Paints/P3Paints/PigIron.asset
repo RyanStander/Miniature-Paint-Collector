@@ -17,4 +17,5 @@ MonoBehaviour:
     Name: Pig Iron
     Brand: 5
     PaintSprite: {fileID: 21300000, guid: 5e35a746a5c8caa498b60f5f16097049, type: 3}
+    PaintSpriteMask: {fileID: 21300000, guid: 96a6994af39be7f45ab1916cde0424af, type: 3}
     PaintColor: {r: 0.18431373, g: 0.18431373, b: 0.18431373, a: 1}

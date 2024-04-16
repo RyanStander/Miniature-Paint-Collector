@@ -17,4 +17,5 @@ MonoBehaviour:
     Name: Piggy Purple Ink
     Brand: 5
     PaintSprite: {fileID: 21300000, guid: 80050a4387487a448b300deccced03d4, type: 3}
+    PaintSpriteMask: {fileID: 21300000, guid: 8594a798915b48948a5ff8554c726a0e, type: 3}
     PaintColor: {r: 0.34117648, g: 0.2627451, b: 0.43529415, a: 1}

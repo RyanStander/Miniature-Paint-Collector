@@ -17,4 +17,5 @@ MonoBehaviour:
     Name: Rhulic Gold
     Brand: 5
     PaintSprite: {fileID: 21300000, guid: 7d78c975462f89f4a983731c8524a6d6, type: 3}
+    PaintSpriteMask: {fileID: 21300000, guid: 96a6994af39be7f45ab1916cde0424af, type: 3}
     PaintColor: {r: 0.5764706, g: 0.36862746, b: 0.15686275, a: 1}

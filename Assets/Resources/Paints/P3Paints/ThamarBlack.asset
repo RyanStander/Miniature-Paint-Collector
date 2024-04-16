@@ -17,4 +17,5 @@ MonoBehaviour:
     Name: Thamar Black
     Brand: 5
     PaintSprite: {fileID: 21300000, guid: 186078d1ebb014b49bd2e0ef1fd1ff93, type: 3}
+    PaintSpriteMask: {fileID: 21300000, guid: 53929a5a543bb024fb4ef278d95b0c14, type: 3}
     PaintColor: {r: 0.015686275, g: 0.015686275, b: 0.011764707, a: 1}

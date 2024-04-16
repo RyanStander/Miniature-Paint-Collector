@@ -17,4 +17,5 @@ MonoBehaviour:
     Name: Cold Steel
     Brand: 5
     PaintSprite: {fileID: 21300000, guid: 5997d063086d5c24d99cee6bdeedf828, type: 3}
+    PaintSpriteMask: {fileID: 21300000, guid: 96a6994af39be7f45ab1916cde0424af, type: 3}
     PaintColor: {r: 0.4156863, g: 0.4431373, b: 0.47450984, a: 1}

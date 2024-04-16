@@ -17,4 +17,5 @@ MonoBehaviour:
     Name: Molten Bronze
     Brand: 5
     PaintSprite: {fileID: 21300000, guid: ce87bb43ea831184e89d3105d2f5321a, type: 3}
+    PaintSpriteMask: {fileID: 21300000, guid: fe649ecd4e5dd8a4eb253dc054837d28, type: 3}
     PaintColor: {r: 0.6156863, g: 0.28235295, b: 0.12941177, a: 1}

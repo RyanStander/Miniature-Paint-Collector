@@ -17,4 +17,5 @@ MonoBehaviour:
     Name: Menoth White Base
     Brand: 5
     PaintSprite: {fileID: 21300000, guid: 3e81d5f736ea56d46a68a232c4ae6c16, type: 3}
+    PaintSpriteMask: {fileID: 21300000, guid: 3e56689040e991440954460a2e296523, type: 3}
     PaintColor: {r: 0.9333334, g: 0.9294118, b: 0.7294118, a: 1}

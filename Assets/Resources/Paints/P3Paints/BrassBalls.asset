@@ -17,4 +17,5 @@ MonoBehaviour:
     Name: Brass Balls
     Brand: 5
     PaintSprite: {fileID: 21300000, guid: d3a9b0037104371409f00dc770a3102f, type: 3}
+    PaintSpriteMask: {fileID: 21300000, guid: 96a6994af39be7f45ab1916cde0424af, type: 3}
     PaintColor: {r: 0.6862745, g: 0.7490196, b: 0.45882356, a: 1}

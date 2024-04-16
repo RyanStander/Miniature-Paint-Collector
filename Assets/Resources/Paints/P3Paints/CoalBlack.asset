@@ -17,4 +17,5 @@ MonoBehaviour:
     Name: Coal Black
     Brand: 5
     PaintSprite: {fileID: 21300000, guid: 95311cf672c8aff46802759d39fb841a, type: 3}
+    PaintSpriteMask: {fileID: 21300000, guid: e141900fe8c5a52449057b7d99acc0d9, type: 3}
     PaintColor: {r: 0.078431375, g: 0.35686275, b: 0.3803922, a: 1}

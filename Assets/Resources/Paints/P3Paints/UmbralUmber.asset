@@ -17,4 +17,5 @@ MonoBehaviour:
     Name: Umbral Umber
     Brand: 5
     PaintSprite: {fileID: 21300000, guid: c06dbcd557fbdbe429569a97c7645960, type: 3}
+    PaintSpriteMask: {fileID: 21300000, guid: fe649ecd4e5dd8a4eb253dc054837d28, type: 3}
     PaintColor: {r: 0.13333334, g: 0.023529414, b: 0, a: 1}

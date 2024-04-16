@@ -17,4 +17,5 @@ MonoBehaviour:
     Name: Khardic Flesh
     Brand: 5
     PaintSprite: {fileID: 21300000, guid: 36caae9183b9bff48a89a05b002755ae, type: 3}
+    PaintSpriteMask: {fileID: 21300000, guid: 3e56689040e991440954460a2e296523, type: 3}
     PaintColor: {r: 0.79215693, g: 0.4784314, b: 0.34901962, a: 1}

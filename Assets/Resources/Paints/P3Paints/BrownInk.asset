@@ -17,4 +17,5 @@ MonoBehaviour:
     Name: Brown Ink
     Brand: 5
     PaintSprite: {fileID: 21300000, guid: 067aadb14e25afc40be6a8e7b986c485, type: 3}
+    PaintSpriteMask: {fileID: 21300000, guid: 8594a798915b48948a5ff8554c726a0e, type: 3}
     PaintColor: {r: 0.5411765, g: 0.38431376, b: 0.32156864, a: 1}

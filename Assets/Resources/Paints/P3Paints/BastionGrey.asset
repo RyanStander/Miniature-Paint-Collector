@@ -17,4 +17,5 @@ MonoBehaviour:
     Name: Bastion Grey
     Brand: 5
     PaintSprite: {fileID: 21300000, guid: 2351e043c07f47f4f8be91402d17e725, type: 3}
+    PaintSpriteMask: {fileID: 21300000, guid: 3e56689040e991440954460a2e296523, type: 3}
     PaintColor: {r: 0.454902, g: 0.47058827, b: 0.38823533, a: 1}

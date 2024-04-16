@@ -17,4 +17,5 @@ MonoBehaviour:
     Name: Caspian Flesh Wash
     Brand: 5
     PaintSprite: {fileID: 21300000, guid: a60d807eff7b6dc438a7c244539e1029, type: 3}
+    PaintSpriteMask: {fileID: 21300000, guid: 8594a798915b48948a5ff8554c726a0e, type: 3}
     PaintColor: {r: 0.5568628, g: 0.46274513, b: 0.3254902, a: 1}

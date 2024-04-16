@@ -17,4 +17,5 @@ MonoBehaviour:
     Name: Ryn Flesh
     Brand: 5
     PaintSprite: {fileID: 21300000, guid: d0f9bbf6850549741be7d181dce7ff18, type: 3}
+    PaintSpriteMask: {fileID: 21300000, guid: fe649ecd4e5dd8a4eb253dc054837d28, type: 3}
     PaintColor: {r: 0.97647065, g: 0.8862746, b: 0.81568635, a: 1}

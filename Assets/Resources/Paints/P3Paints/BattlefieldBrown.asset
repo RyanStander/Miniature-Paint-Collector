@@ -17,4 +17,5 @@ MonoBehaviour:
     Name: Battlefield Brown
     Brand: 5
     PaintSprite: {fileID: 21300000, guid: 885286ca4dde5ee4e9cd13b85158e0cf, type: 3}
+    PaintSpriteMask: {fileID: 21300000, guid: 3e56689040e991440954460a2e296523, type: 3}
     PaintColor: {r: 0.18431373, g: 0.13725491, b: 0.10196079, a: 1}

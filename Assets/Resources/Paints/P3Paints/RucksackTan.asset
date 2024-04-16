@@ -17,4 +17,5 @@ MonoBehaviour:
     Name: Rucksack Tan
     Brand: 5
     PaintSprite: {fileID: 21300000, guid: 69ae316fdb541464cae0f71c3ea0388a, type: 3}
+    PaintSpriteMask: {fileID: 21300000, guid: fe649ecd4e5dd8a4eb253dc054837d28, type: 3}
     PaintColor: {r: 0.7019608, g: 0.5882353, b: 0.23529413, a: 1}

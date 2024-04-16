@@ -17,4 +17,5 @@ MonoBehaviour:
     Name: Ironhull Grey
     Brand: 5
     PaintSprite: {fileID: 21300000, guid: 0e5aa1d0e906dce4890a60c28cfd1a55, type: 3}
+    PaintSpriteMask: {fileID: 21300000, guid: 3e56689040e991440954460a2e296523, type: 3}
     PaintColor: {r: 0.5529412, g: 0.5803922, b: 0.6039216, a: 1}

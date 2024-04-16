@@ -17,4 +17,5 @@ MonoBehaviour:
     Name: Solid Gold
     Brand: 5
     PaintSprite: {fileID: 21300000, guid: effd137a7262e924a946b2ce4622de08, type: 3}
+    PaintSpriteMask: {fileID: 21300000, guid: 3e56689040e991440954460a2e296523, type: 3}
     PaintColor: {r: 0.93725497, g: 0.87843144, b: 0.5058824, a: 1}

@@ -17,4 +17,5 @@ MonoBehaviour:
     Name: Wurm Green
     Brand: 5
     PaintSprite: {fileID: 21300000, guid: 660389e67fa53a34781943a0f90e26ca, type: 3}
+    PaintSpriteMask: {fileID: 21300000, guid: fe649ecd4e5dd8a4eb253dc054837d28, type: 3}
     PaintColor: {r: 0.5529412, g: 0.74509805, b: 0.24705884, a: 1}

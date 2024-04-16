@@ -10,6 +10,7 @@ namespace EditorTools.Paints
     public class PaintDataCreatorWindow : EditorWindow
     {
         private List<Sprite> spriteList = new List<Sprite>();
+        private List<Sprite> spriteMaskList = new List<Sprite>(); // List to store sprite masks for each sprite
         private List<Color> colorList = new List<Color>(); // List to store colors for each sprite
         private PaintBrand selectedBrand = PaintBrand.None; // Assuming PaintBrand enum is defined elsewhere
         private string savePath = "Assets/Resources/Paints/";
@@ -51,6 +52,7 @@ namespace EditorTools.Paints
                             if (sprite != null)
                             {
                                 spriteList.Add(sprite);
+                                spriteMaskList.Add(null); // Add default mask (null) for each sprite
                                 colorList.Add(Color.white); // Add default color (white) for each sprite
                             }
                         }
@@ -69,10 +71,15 @@ namespace EditorTools.Paints
                 
                 // Color picker for each sprite
                 colorList[i] = EditorGUILayout.ColorField(colorList[i]);
+                
+                // Display the current sprite and allow selection of a new one
+                spriteMaskList[i] = (Sprite)EditorGUILayout.ObjectField(spriteMaskList[i], typeof(Sprite), false);
+
 
                 if (GUILayout.Button("Remove"))
                 {
                     spriteList.RemoveAt(i);
+                    spriteMaskList.RemoveAt(i); // Remove corresponding mask
                     colorList.RemoveAt(i); // Remove corresponding color
                     break;
                 }

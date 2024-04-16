@@ -17,4 +17,5 @@ MonoBehaviour:
     Name: Trollblood Base
     Brand: 5
     PaintSprite: {fileID: 21300000, guid: d779bed0c2ea1824b8fc7e5580abf9bd, type: 3}
+    PaintSpriteMask: {fileID: 21300000, guid: 96a6994af39be7f45ab1916cde0424af, type: 3}
     PaintColor: {r: 0.17254902, g: 0.5411765, b: 0.6039216, a: 1}

@@ -17,4 +17,5 @@ MonoBehaviour:
     Name: Radiant Platinum
     Brand: 5
     PaintSprite: {fileID: 21300000, guid: c267a3c81cc5fbd499d05ab56b6aa798, type: 3}
+    PaintSpriteMask: {fileID: 21300000, guid: c1ef15be85fb1974a92bdc216ab64e0d, type: 3}
     PaintColor: {r: 0.53333336, g: 0.54901963, b: 0.46274513, a: 1}

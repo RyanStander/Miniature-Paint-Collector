@@ -17,4 +17,5 @@ MonoBehaviour:
     Name: Gravedigger Denim
     Brand: 5
     PaintSprite: {fileID: 21300000, guid: 3d262626c7acd9b43ad196b23b19cd90, type: 3}
+    PaintSpriteMask: {fileID: 21300000, guid: c1ef15be85fb1974a92bdc216ab64e0d, type: 3}
     PaintColor: {r: 0.27450982, g: 0.3254902, b: 0.33333334, a: 1}

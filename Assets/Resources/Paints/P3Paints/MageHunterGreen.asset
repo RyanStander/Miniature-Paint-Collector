@@ -17,4 +17,5 @@ MonoBehaviour:
     Name: Mage Hunter Green
     Brand: 5
     PaintSprite: {fileID: 21300000, guid: ae78dbf05b9db7e4abf9e61c1e0f1687, type: 3}
+    PaintSpriteMask: {fileID: 21300000, guid: 53929a5a543bb024fb4ef278d95b0c14, type: 3}
     PaintColor: {r: 0.33333334, g: 0.38823533, b: 0.3137255, a: 1}

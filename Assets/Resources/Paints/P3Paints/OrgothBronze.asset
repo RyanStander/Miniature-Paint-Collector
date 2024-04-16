@@ -17,4 +17,5 @@ MonoBehaviour:
     Name: Orgoth Bronze
     Brand: 5
     PaintSprite: {fileID: 21300000, guid: 5be07c0c661386544b4d9a8f46a2fe2a, type: 3}
+    PaintSpriteMask: {fileID: 21300000, guid: fe649ecd4e5dd8a4eb253dc054837d28, type: 3}
     PaintColor: {r: 0.3529412, g: 0.31764707, b: 0.21176472, a: 1}

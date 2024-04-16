@@ -17,4 +17,5 @@ MonoBehaviour:
     Name: Quick Silver
     Brand: 5
     PaintSprite: {fileID: 21300000, guid: 114fe9083ca7a894282a67723274c290, type: 3}
+    PaintSpriteMask: {fileID: 21300000, guid: fe649ecd4e5dd8a4eb253dc054837d28, type: 3}
     PaintColor: {r: 0.6627451, g: 0.6745098, b: 0.7176471, a: 1}

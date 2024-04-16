@@ -2764,7 +2764,7 @@ CanvasGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 760660188}
   m_Enabled: 1
-  m_Alpha: 1
+  m_Alpha: 0
   m_Interactable: 0
   m_BlocksRaycasts: 0
   m_IgnoreParentGroups: 0
@@ -2789,8 +2789,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   paintDisplay: {fileID: 1056099226}
-  paintDisplayMaskImage: {fileID: 0}
-  paintDisplayMask: {fileID: 0}
+  paintDisplayMaskImage: {fileID: 904875372}
+  paintDisplayMask: {fileID: 904875371}
   paintNameText: {fileID: 426722757}
   paintBrandText: {fileID: 34251327}
   paintQuantityText: {fileID: 1745378617}

@@ -17,4 +17,5 @@ MonoBehaviour:
     Name: Menoth White Highlight
     Brand: 5
     PaintSprite: {fileID: 21300000, guid: 8d5c9abb595924c4eadc2faae8b39ed7, type: 3}
+    PaintSpriteMask: {fileID: 21300000, guid: fe649ecd4e5dd8a4eb253dc054837d28, type: 3}
     PaintColor: {r: 0.95294124, g: 0.95294124, b: 0.86666673, a: 1}

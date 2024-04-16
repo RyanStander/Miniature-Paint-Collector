@@ -17,4 +17,5 @@ MonoBehaviour:
     Name: Khador Red Highlight
     Brand: 5
     PaintSprite: {fileID: 21300000, guid: 0d13df7be3d4e7f498e2c0d72cb08634, type: 3}
+    PaintSpriteMask: {fileID: 21300000, guid: 96a6994af39be7f45ab1916cde0424af, type: 3}
     PaintColor: {r: 0.94117653, g: 0.56078434, b: 0.25882354, a: 1}

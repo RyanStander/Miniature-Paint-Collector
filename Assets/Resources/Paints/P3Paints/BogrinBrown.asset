@@ -17,4 +17,5 @@ MonoBehaviour:
     Name: Bogrin Brown
     Brand: 5
     PaintSprite: {fileID: 21300000, guid: f74e88288e59d5e40a431d23ac7feb26, type: 3}
+    PaintSpriteMask: {fileID: 21300000, guid: 96a6994af39be7f45ab1916cde0424af, type: 3}
     PaintColor: {r: 0.59607846, g: 0.37647063, b: 0.20392159, a: 1}
