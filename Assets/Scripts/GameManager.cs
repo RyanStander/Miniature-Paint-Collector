@@ -221,6 +221,10 @@ public class GameManager : MonoBehaviour
             return;
 
         paintInventory.WishlistPaint(wishlistPaint.Id);
+        
+        // If the player is in the wishlist menu reload the ui
+        if (currentMenu == CurrentMenu.Wishlist)
+            LoadWishlist();
     }
 
     private void OnRequestPaintData(EventData eventData)
