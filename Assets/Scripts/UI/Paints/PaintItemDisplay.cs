@@ -13,11 +13,11 @@ namespace UI.Paints
         [SerializeField] private TextMeshProUGUI paintName;
         [SerializeField] private Image paintColor;
         
-        private PaintData paintData;
+        public PaintData PaintData { get; private set; }
         
         public void SetPaintData(PaintData paintData)
         {
-            this.paintData = paintData;
+            this.PaintData = paintData;
             paintImage.sprite = paintData.PaintItem.PaintSprite;
             paintName.text = paintData.PaintItem.Name;
             paintColor.color = paintData.PaintItem.PaintColor;
@@ -25,7 +25,7 @@ namespace UI.Paints
 
         public void OpenPaintContextMenu()
         {
-            EventManager.currentManager.AddEvent(new RequestPaintData(paintData.PaintItem.ID));
+            EventManager.currentManager.AddEvent(new RequestPaintData(PaintData.PaintItem.ID));
         }
     }
 }

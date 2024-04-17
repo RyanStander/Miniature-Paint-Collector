@@ -5,6 +5,7 @@ using System.Linq;
 using Paints;
 using Paints.PaintItems;
 using UnityEngine;
+using Utilities;
 
 namespace UI.Paints
 {
@@ -19,6 +20,7 @@ namespace UI.Paints
         [SerializeField] private GameObject noWishlistedPaintsMessage;
 
         private Dictionary<PaintBrand, PaintBrandContainer> paintBrandContainerDictionary = new();
+        private Dictionary<PaintBrand, List<PaintItemDisplay>> paintItemsByBrand = new();
         private List<int> paintBrandsWithPaints = new();
 
         private void OnValidate()
@@ -54,7 +56,7 @@ namespace UI.Paints
                 noWishlistedPaintsMessage.SetActive(true);
             }
         }
-        
+
         private void SpawnPaintsBasedOnIds(ICollection<int> paintIds, IEnumerable<PaintData> paintDatas)
         {
             ResetPaintUIData();
@@ -79,12 +81,33 @@ namespace UI.Paints
             // Iterate through each PaintData and spawn paint items
             foreach (var paintData in paintDatas)
             {
-                if (paintBrandContainerDictionary.ContainsKey(paintData.PaintItem.Brand))
-                    SpawnPaintInBrand(paintBrandContainerDictionary[paintData.PaintItem.Brand], paintData);
+                if (!paintBrandContainerDictionary.ContainsKey(paintData.PaintItem.Brand))
+                    continue;
+
+                SpawnPaintInBrand(paintBrandContainerDictionary[paintData.PaintItem.Brand], paintData);
             }
 
-            ToggleContentActive(false);
+            SortPaintItemDisplays();
+
+            StartCoroutine(ToggleContentActive(false));
             HideEmptyPaintBrandContainers();
+        }
+
+        private void SortPaintItemDisplays()
+        {
+            //TODO: this is slow, try to async or do it before runtime (probably the latter)
+            
+            var unsortedDictionary = new Dictionary<PaintBrand, List<PaintItemDisplay>>(paintItemsByBrand);
+            
+            foreach (var paintItemDisplaySet in unsortedDictionary)
+            {
+                paintItemsByBrand[paintItemDisplaySet.Key] = new SortByHue().SortColorsByHue(paintItemDisplaySet.Value);
+            }
+
+            foreach (var paintItem in paintItemsByBrand.Values.SelectMany(paintItemDisplay => paintItemDisplay))
+            {
+                paintItem.transform.SetAsLastSibling();
+            }
         }
 
         private void SpawnPaintInBrand(PaintBrandContainer parent, PaintData paintData)
@@ -101,6 +124,7 @@ namespace UI.Paints
             }
 
             paintBrandsWithPaints.Add((int)parent.PaintBrand);
+            paintItemsByBrand[paintData.PaintItem.Brand].Add(paintItemDisplay);
         }
 
         private void ResetPaintUIData()
@@ -109,6 +133,12 @@ namespace UI.Paints
             foreach (var brandContainer in paintBrandContainerDictionary)
             {
                 brandContainer.Value.ClearContainer();
+            }
+
+            paintItemsByBrand = new Dictionary<PaintBrand, List<PaintItemDisplay>>();
+            foreach (var paintBrand in paintBrandContainerDictionary.Keys)
+            {
+                paintItemsByBrand.Add(paintBrand, new List<PaintItemDisplay>());
             }
 
             paintBrandsWithPaints = new List<int>();
